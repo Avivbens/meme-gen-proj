@@ -27,6 +27,13 @@ input:placeholder-shown {
     color: #fefefe;
     background: linear-gradient(0.25turn, #0f9ab4, #30bb73);
     box-shadow: 2px 3px 11px 0px #0000007a;
+    opacity: 0.9;
+}
+
+.btn:hover {
+    cursor: pointer;
+    opacity: 1;
+    filter: contrast(150%);
 }
 
 .hidden {

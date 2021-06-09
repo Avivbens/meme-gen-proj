@@ -1,7 +1,5 @@
 'use strict';
 
-var gChoseImage = null;
-
 function init() {
     renderImages();
     initCanvasService();
@@ -24,7 +22,9 @@ function renderImages() {
 }
 
 function onChoseImage(el) {
-    gChoseImage = el;
+    if (el) {
+        setCurrentMemeImg(el);
+    }
 
     var img = new Image();
     img.src = el.src;
@@ -43,4 +43,29 @@ function gotoEditor() {
 function gotoMainPage() {
     document.querySelector('.editor-container').classList.add('hidden');
     document.querySelector('.main-container').classList.remove('hidden');
+}
+
+function onEnterNewLine(el) {
+    let val = el.value;
+}
+
+function onAddNewLine() {
+    //
+}
+
+function onSelectLine(idx) {
+    idx = idx || 0;
+    setCurrentSelectedLine(idx);
+}
+
+function onEditCurrentLine(txt) {
+    let currentLine = getCurrentLine();
+
+    currentLine.txt = txt;
+    repaint();
+}
+
+function onInputTxt(el) {
+    let txt = el.value;
+    onEditCurrentLine(txt);
 }

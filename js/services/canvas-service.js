@@ -101,6 +101,7 @@ function drawImg2(src) {
     img.src = src;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        drawMeme();
     };
 }
 
@@ -157,9 +158,13 @@ function drawArc(x, y, r) {
     gCtx.fill();
 }
 
-function drawText(text, pos) {
+function drawText(text, pos = { x: 100, y: 200 }) {
     gCtx.lineWidth = gDensity;
-    gCtx.font = '40px Arial';
+    // gCtx.font = `${size}px ${font}`;
+
+    // gCtx.fillStyle = color;
+    // gCtx.strokeStyle = 'black';
+
     gCtx.fillText(text, pos.x, pos.y);
     gCtx.strokeText(text, pos.x, pos.y);
 }
@@ -230,6 +235,37 @@ function drawFreeStyleIntegraCircle(allPoints) {
 
 function clearCanvas() {
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+}
+
+function drawMeme() {
+    let meme = getCurrentMeme();
+
+    if (!meme) return;
+    meme.lines.forEach((line) => {
+        gCtx.font = `${line.size}px ${line.font}`;
+
+        gCtx.fillStyle = line.color;
+        gCtx.strokeStyle = 'black';
+
+        let curerntPosition = {
+            x: getCanvasCenterWidth() - gCtx.measureText(line.txt).width / 2,
+            y: line.size * 1.5,
+        };
+        // drawText(line.txt, line.size, line.font, line.color, curerntPosition);
+        drawText(line.txt, curerntPosition);
+    });
+}
+
+function getCanvasCenterWidth() {
+    return gCanvas.width / 2;
+}
+
+function getCanvasCenterHeight() {
+    return gCanvas.height / 2;
+}
+
+function repaint() {
+    drawImg2(getCurrentImg().src);
 }
 
 function draw() {

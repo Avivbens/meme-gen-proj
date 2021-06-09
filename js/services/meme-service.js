@@ -41,10 +41,53 @@ var gMeme = {
     selectedImgId: 5,
     selectedLineIdx: 0,
     lines: [
-        { txt: 'I never eat Falafel', size: 20, align: 'left', color: 'red' },
+        {
+            txt: 'Put your text here',
+            size: 40,
+            font: 'Impact',
+            align: 'left',
+            color: 'white',
+        },
     ],
 };
 
 function getImages() {
     return gImgs;
+}
+
+function getCurrentImg() {
+    let imgById = gImgs.find((img) => {
+        return img.id === +gMeme.selectedImgId;
+    });
+
+    let img = new Image();
+    img.src = imgById.url;
+
+    return img;
+}
+
+function getCurrentMeme() {
+    return gMeme;
+}
+
+function setCurrentMemeImg(img) {
+    let imgId = img.dataset['id'];
+    gMeme.selectedImgId = imgId;
+}
+
+function setCurrentSelectedLine(idx) {
+    gMeme.selectedLineIdx = idx;
+}
+
+function getCurrentLine() {
+    return gMeme.lines[gMeme.selectedLineIdx];
+}
+
+function addNewLine() {
+    gMeme.lines.push({
+        txt: 'Put your text here',
+        size: 20,
+        align: 'left',
+        color: 'white',
+    });
 }

@@ -42,13 +42,13 @@
             </div>
 
             <div class="edit-prop-container">
-                <input class="text-editor-input" type="text" placeholder="CAN'T GET FIRED">
+                <input oninput="onInputTxt(this)" class="text-editor-input" type="text" placeholder="CAN'T GET FIRED">
 
                 <div class="add-remove-btns">
                     <button class="action-btn change-position-btn hover-pointer">
                         <img src="img/icons/change-position-btn.png" alt="">
                     </button>
-                    <button class="action-btn plus-btn hover-pointer">
+                    <button onclick="onAddNewLine()" class="action-btn plus-btn hover-pointer">
                         <img src="img/icons/plus-btn.png" alt="">
                     </button>
                     <button class="action-btn delete-btn hover-pointer">
