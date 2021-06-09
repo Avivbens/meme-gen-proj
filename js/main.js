@@ -33,7 +33,7 @@ function onChoseImage(el) {
 
     resizeCanvasByImageSize(img);
 
-    drawImg2(el.src);
+    repaint();
     gotoEditor();
 }
 
@@ -48,32 +48,48 @@ function gotoMainPage() {
     document.querySelector('.main-container').classList.remove('hidden');
 }
 
-function onEnterNewLine(el) {
-    let val = el.value;
-}
-
 function onAddNewLine() {
     addNewLine();
+    setCurrentSelectedLine(getCurrentMeme().lines.length - 1);
     repaint();
 }
 
+function onDeleteLine() {
+    deleteLine();
+    repaint();
+}
+
+function onToggleLines() {
+    toggleLineIdx();
+    let currentLine = getCurrentLine();
+
+    setInputTxt(currentLine.txt);
+
+    repaint();
+}
+
+// ! unused
 function onSelectLine(idx) {
     idx = idx || 0;
     setCurrentSelectedLine(idx);
 }
 
-function onEditCurrentLine(txt) {
+function onInputTxt(el) {
+    let txt = el.value;
     let currentLine = getCurrentLine();
 
     currentLine.txt = txt;
     repaint();
 }
 
-function onInputTxt(el) {
-    let txt = el.value;
-    onEditCurrentLine(txt);
-}
-
 function clearInput(el) {
     el.value = '';
+    setCurrentSelectedLine(-1);
+    repaint();
+}
+
+function setInputTxt(txt) {
+    var elInput = document.querySelector('.text-editor-input');
+
+    elInput.value = txt;
 }

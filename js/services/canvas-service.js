@@ -159,17 +159,31 @@ function drawArc(x, y, r) {
 }
 
 function drawTextByLine(line, idx) {
+    let currentPos = {
+        x: getCanvasCenterWidth() - gCtx.measureText(line.txt).width / 2,
+        y: line.size * 2 * (idx + 1),
+    };
+
+    // Rect
+    if (getCurrentMeme().selectedLineIdx === idx) {
+        gCtx.fillStyle = 'rgb(56 59 66 / 44%)';
+        gCtx.fillRect(
+            0,
+            currentPos.y - line.size * 1,
+            gCanvas.width,
+            line.size * 1.5,
+        );
+        // gCtx.strokeStyle = 'black';
+        // gCtx.stroke();
+    }
+
+    // Text
     gCtx.font = `${line.size}px ${line.font}`;
 
     gCtx.fillStyle = line.color;
     gCtx.strokeStyle = 'black';
 
-    let curerntPosition = {
-        x: getCanvasCenterWidth() - gCtx.measureText(line.txt).width / 2,
-        y: line.size * 1.5 * (idx + 1),
-    };
-
-    drawText(line.txt, curerntPosition);
+    drawText(line.txt, currentPos);
 }
 
 function drawText(text, pos = { x: 100, y: 200 }) {

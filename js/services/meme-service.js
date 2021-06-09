@@ -113,3 +113,20 @@ function addNewLine() {
 
     gMeme.selectedLineIdx++;
 }
+
+function deleteLine() {
+    if (!gMeme.lines.length) return;
+
+    let currentIdx = gMeme.selectedLineIdx;
+    if (currentIdx < 0 || currentIdx >= gMeme.lines.length) return;
+
+    gMeme.lines.splice(currentIdx, 1);
+
+    gMeme.selectedLineIdx--;
+}
+
+function toggleLineIdx() {
+    gMeme.selectedLineIdx++;
+
+    if (gMeme.selectedLineIdx >= gMeme.lines.length) gMeme.selectedLineIdx = 0;
+}
