@@ -63,17 +63,25 @@ function initMeme() {
                 txt: 'Put your text here',
                 size: 40,
                 font: 'Impact',
-                align: 'left',
+                align: 'middle',
                 color: 'white',
+                x: 250,
+                y: 80,
             },
         ],
     };
 }
 
+/**
+ * @returns All Images
+ */
 function getImages() {
     return gImgs;
 }
 
+/**
+ * @returns Current selected img in Img object
+ */
 function getCurrentImg() {
     let imgById = gImgs.find((img) => {
         return img.id === +gMeme.selectedImgId;
@@ -89,6 +97,10 @@ function getCurrentMeme() {
     return gMeme;
 }
 
+/**
+ * Set current meme img
+ * @param {Image} img
+ */
 function setCurrentMemeImg(img) {
     let imgId = img.dataset['id'];
     gMeme.selectedImgId = imgId;
@@ -99,21 +111,53 @@ function setCurrentSelectedLine(idx) {
 }
 
 function getCurrentLine() {
+    if (gMeme.selectedLineIdx < 0) return null;
     return gMeme.lines[gMeme.selectedLineIdx];
 }
 
+function getLastLine() {
+    return gMeme.lines[gMeme.lines.length - 1];
+}
+
+function getLastLineIdx() {
+    return gMeme.lines.length - 1;
+}
+
+// ****
+
+/**
+ * Update current line txt and align based of definition
+ * @param {String} txt
+ */
+function updateLineTxt(txt) {
+    let currentLine = getCurrentLine();
+
+    if (!currentLine) return;
+
+    currentLine.txt = txt;
+    arrangePositionByAlign();
+}
+
+// *************
+
+/**
+ * Adding new line and move to it
+ */
 function addNewLine() {
     gMeme.lines.push({
         txt: 'Put your text here',
         size: 40,
         font: 'Impact',
-        align: 'left',
+        align: 'middle',
         color: 'white',
     });
 
     gMeme.selectedLineIdx++;
 }
 
+/**
+ * Delete edited line
+ */
 function deleteLine() {
     if (!gMeme.lines.length) return;
 
@@ -125,8 +169,66 @@ function deleteLine() {
     gMeme.selectedLineIdx--;
 }
 
+/**
+ * Move across the lines array
+ */
 function toggleLineIdx() {
     gMeme.selectedLineIdx++;
 
     if (gMeme.selectedLineIdx >= gMeme.lines.length) gMeme.selectedLineIdx = 0;
+}
+
+// ****
+
+/**
+ * Changing the line align
+ * @param {String} newPos
+ */
+function changeFontPos(newPos) {
+    var currentLine = getCurrentLine();
+
+    if (!currentLine) return;
+    currentLine.align = newPos;
+    arrangePositionByAlign();
+}
+
+/**
+ * Changing font size of current line
+ * @param {Number} diff -1 / 1
+ */
+function changeFontSize(diff) {
+    var currentLine = getCurrentLine();
+
+    if (!currentLine) return;
+
+    currentLine.size += diff;
+}
+
+/**
+ * Calculate the estimated position X of the line based on align
+ */
+function arrangePositionByAlign() {
+    let currentLine = getCurrentLine();
+    if (!currentLine) return;
+
+    switch (currentLine.align) {
+        case 'middle':
+            currentLine.x =
+                getCanvasCenterWidth() -
+                gCtx.measureText(currentLine.txt).width / 2;
+            break;
+        case 'right':
+            currentLine.x =
+                getCanvasCenterWidth() * 2 -
+                gCtx.measureText(currentLine.txt).width -
+                20;
+            break;
+        case 'left':
+            currentLine.x = 20;
+            break;
+
+        default:
+            currentLine.x = 0;
+            break;
+    }
 }

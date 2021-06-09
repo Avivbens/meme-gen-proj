@@ -159,10 +159,17 @@ function drawArc(x, y, r) {
 }
 
 function drawTextByLine(line, idx) {
-    let currentPos = {
-        x: getCanvasCenterWidth() - gCtx.measureText(line.txt).width / 2,
-        y: line.size * 2 * (idx + 1),
-    };
+    // Saving current position of each line
+    var currentPos = { x: line.x, y: line.y };
+    if (!line.x && !line.y) {
+        currentPos = {
+            x: getCanvasCenterWidth() - gCtx.measureText(line.txt).width / 2,
+            y: line.size * 2 * (idx + 1),
+        };
+
+        line.x = currentPos.x;
+        line.y = currentPos.y;
+    }
 
     // Rect
     if (getCurrentMeme().selectedLineIdx === idx) {

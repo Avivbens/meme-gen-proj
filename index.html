@@ -58,30 +58,42 @@
                 </div>
 
                 <div class="text-decoration-container">
-                    <button class="text-decoration-btn text-decoration-item hover-pointer">
+                    <button onclick="onChangeFontSize(1)" class="increase-font-btn text-decoration-btn 
+                    text-decoration-item hover-pointer">
                         <img src="img/icons/a+.png" alt="">
                     </button>
-                    <button class="text-decoration-btn text-decoration-item hover-pointer">
+
+                    <button onclick="onChangeFontSize(-1)" class="decrease-font-btn text-decoration-btn
+                     text-decoration-item hover-pointer">
                         <img src="img/icons/a-.png" alt="">
                     </button>
-                    <button class="text-decoration-btn text-decoration-item hover-pointer">
+
+                    <button onclick="onFontPos('left')" class="left-font-btn text-decoration-btn 
+                    text-decoration-item hover-pointer">
                         <img src="img/icons/left-font.png" alt="">
                     </button>
-                    <button class="text-decoration-btn text-decoration-item hover-pointer">
+
+                    <button onclick="onFontPos('middle')" class="middle-font-btn text-decoration-btn 
+                    text-decoration-item hover-pointer">
                         <img src="img/icons/middle-font.png" alt="">
                     </button>
-                    <button class="text-decoration-btn text-decoration-item hover-pointer">
+
+                    <button onclick="onFontPos('right')" class="right-font-btn text-decoration-btn 
+                    text-decoration-item hover-pointer">
                         <img src="img/icons/right-font.png" alt="">
                     </button>
 
-                    <select class="select-font-decoration text-decoration-item hover-pointer">
+                    <select onchange="onChangeFont()" class="select-font-decoration text-decoration-item hover-pointer">
                         <option value="impact">Impact</option>
                     </select>
 
-                    <button class="text-decoration-btn text-decoration-item hover-pointer">
+                    <button onclick="onUnderlineFont()" class="underline-font-btn text-decoration-btn 
+                    text-decoration-item hover-pointer">
                         <img src="img/icons/undeline-font.png" alt="">
                     </button>
-                    <button class="text-decoration-btn text-decoration-item hover-pointer">
+
+                    <button onclick="onColorFont()" class="color-font-btn text-decoration-btn
+                    text-decoration-item hover-pointer">
                         <img src="img/icons/color-font.png" alt="">
                     </button>
                 </div>
@@ -94,11 +106,11 @@
                 </div>
 
                 <div class="share-download-container">
-                    <button class="export-btn share-btn">
+                    <button class="export-btn share-btn hover-pointer">
                         <img src="img/icons/share.png" alt="">
                         <span>Share</span>
                     </button>
-                    <button class="export-btn download-btn">
+                    <button class="export-btn download-btn hover-pointer">
                         <img src="img/icons/download.png" alt="">
                         <span>Download</span>
                     </button>
