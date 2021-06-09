@@ -22,7 +22,7 @@
                 </div>
 
                 <div class="menu-options">
-                    <a href="#" class="menu-option">
+                    <a href="#" class="menu-option" onclick="gotoMainPage()">
                         Gallery
                     </a>
                     <a href="#" class="menu-option">
@@ -42,7 +42,8 @@
             </div>
 
             <div class="edit-prop-container">
-                <input oninput="onInputTxt(this)" class="text-editor-input" type="text" placeholder="CAN'T GET FIRED">
+                <input oninput="onInputTxt(this)" class="text-editor-input" type="text" placeholder="Put your text here"
+                    onblur="clearInput(this)">
 
                 <div class="add-remove-btns">
                     <button class="action-btn change-position-btn hover-pointer">

@@ -1,6 +1,8 @@
 'use strict';
 
 function init() {
+    initMeme();
+
     renderImages();
     initCanvasService();
 }
@@ -41,6 +43,7 @@ function gotoEditor() {
 }
 
 function gotoMainPage() {
+    initMeme();
     document.querySelector('.editor-container').classList.add('hidden');
     document.querySelector('.main-container').classList.remove('hidden');
 }
@@ -50,7 +53,8 @@ function onEnterNewLine(el) {
 }
 
 function onAddNewLine() {
-    //
+    addNewLine();
+    repaint();
 }
 
 function onSelectLine(idx) {
@@ -68,4 +72,8 @@ function onEditCurrentLine(txt) {
 function onInputTxt(el) {
     let txt = el.value;
     onEditCurrentLine(txt);
+}
+
+function clearInput(el) {
+    el.value = '';
 }

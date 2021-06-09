@@ -158,6 +158,20 @@ function drawArc(x, y, r) {
     gCtx.fill();
 }
 
+function drawTextByLine(line, idx) {
+    gCtx.font = `${line.size}px ${line.font}`;
+
+    gCtx.fillStyle = line.color;
+    gCtx.strokeStyle = 'black';
+
+    let curerntPosition = {
+        x: getCanvasCenterWidth() - gCtx.measureText(line.txt).width / 2,
+        y: line.size * 1.5 * (idx + 1),
+    };
+
+    drawText(line.txt, curerntPosition);
+}
+
 function drawText(text, pos = { x: 100, y: 200 }) {
     gCtx.lineWidth = gDensity;
     // gCtx.font = `${size}px ${font}`;
@@ -241,18 +255,8 @@ function drawMeme() {
     let meme = getCurrentMeme();
 
     if (!meme) return;
-    meme.lines.forEach((line) => {
-        gCtx.font = `${line.size}px ${line.font}`;
-
-        gCtx.fillStyle = line.color;
-        gCtx.strokeStyle = 'black';
-
-        let curerntPosition = {
-            x: getCanvasCenterWidth() - gCtx.measureText(line.txt).width / 2,
-            y: line.size * 1.5,
-        };
-        // drawText(line.txt, line.size, line.font, line.color, curerntPosition);
-        drawText(line.txt, curerntPosition);
+    meme.lines.forEach((line, idx) => {
+        drawTextByLine(line, idx);
     });
 }
 
