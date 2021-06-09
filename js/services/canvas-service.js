@@ -184,11 +184,29 @@ function drawTextByLine(line, idx) {
         // gCtx.stroke();
     }
 
+    // Underline
+    if (line.isUnderline) {
+        gCtx.fillStyle = 'black';
+        gCtx.strokeStyle = 'black';
+
+        let underLine = '_';
+        underLine = underLine.repeat(line.txt.length);
+
+        gCtx.textBaseline = 'middle';
+        gCtx.fillText(underLine, currentPos.x, currentPos.y);
+        gCtx.strokeText(underLine, currentPos.x, currentPos.y);
+    }
+
     // Text
     gCtx.font = `${line.size}px ${line.font}`;
 
+    // Adding bold if needed
+    if (line.isBold) gCtx.font = `bold ${line.size}px ${line.font}`;
+
     gCtx.fillStyle = line.color;
     gCtx.strokeStyle = 'black';
+
+    gCtx.textBaseline = 'alphabetic';
 
     drawText(line.txt, currentPos);
 }

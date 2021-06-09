@@ -83,17 +83,29 @@
                         <img src="img/icons/right-font.png" alt="">
                     </button>
 
-                    <select onchange="onChangeFont()" class="select-font-decoration text-decoration-item hover-pointer">
-                        <option value="impact">Impact</option>
+                    <select onchange="onChangeFont(this.value)"
+                        class="select-font-decoration text-decoration-item hover-pointer">
+                        <option value="Impact">Impact</option>
+                        <option value="Arial">Arial</option>
+                        <option value="David">David</option>
+                        <option value="Sans-Serif">sans-serif</option>
                     </select>
+
+                    <button onclick="onBoldFont()" class="bold-font-btn text-decoration-btn 
+                    text-decoration-item hover-pointer">
+                        <img src="img/icons/bold-font.png" alt="">
+                    </button>
 
                     <button onclick="onUnderlineFont()" class="underline-font-btn text-decoration-btn 
                     text-decoration-item hover-pointer">
                         <img src="img/icons/undeline-font.png" alt="">
                     </button>
 
-                    <button onclick="onColorFont()" class="color-font-btn text-decoration-btn
+                    <button type="color" class="color-font-btn text-decoration-btn
                     text-decoration-item hover-pointer">
+                        <input oninput="onColorFont(this)" type="color" value="#ffffff"
+                            style="opacity:0; position:absolute; left:0;top:0;width:100%" />
+
                         <img src="img/icons/color-font.png" alt="">
                     </button>
                 </div>

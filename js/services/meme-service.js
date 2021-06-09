@@ -65,6 +65,8 @@ function initMeme() {
                 font: 'Impact',
                 align: 'middle',
                 color: 'white',
+                isUnderline: false,
+                isBold: false,
                 x: 250,
                 y: 80,
             },
@@ -180,6 +182,15 @@ function toggleLineIdx() {
 
 // ****
 
+function changeFontStyle(font) {
+    //
+    var currentLine = getCurrentLine();
+
+    if (!currentLine) return;
+
+    currentLine.font = font;
+}
+
 /**
  * Changing the line align
  * @param {String} newPos
@@ -202,6 +213,34 @@ function changeFontSize(diff) {
     if (!currentLine) return;
 
     currentLine.size += diff;
+}
+
+/**
+ * Change current line color
+ * @param {String} color
+ */
+function changeFontColor(color) {
+    var currentLine = getCurrentLine();
+
+    if (!currentLine) return;
+
+    currentLine.color = color;
+}
+
+function toggleBold() {
+    var currentLine = getCurrentLine();
+
+    if (!currentLine) return;
+
+    currentLine.isBold = !currentLine.isBold;
+}
+
+function toggleUnderline() {
+    var currentLine = getCurrentLine();
+
+    if (!currentLine) return;
+
+    currentLine.isUnderline = !currentLine.isUnderline;
 }
 
 /**

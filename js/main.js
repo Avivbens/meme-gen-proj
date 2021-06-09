@@ -1,5 +1,7 @@
 'use strict';
 
+const FONT_SIZE_CHANGE_STEPS = 2;
+
 function init() {
     initMeme();
 
@@ -110,7 +112,7 @@ function focusLastLine() {
  * @param {Number} diff -1 / 1
  */
 function onChangeFontSize(diff) {
-    changeFontSize(diff);
+    changeFontSize(diff * FONT_SIZE_CHANGE_STEPS);
     arrangePositionByAlign();
     repaint();
 }
@@ -125,15 +127,26 @@ function onFontPos(newPos) {
 }
 
 function onChangeFont(font) {
-    //
+    console.log(font);
+    changeFontStyle(font);
+    repaint();
+}
+
+function onBoldFont() {
+    toggleBold();
+    repaint();
 }
 
 function onUnderlineFont() {
-    //
+    toggleUnderline();
+    repaint();
 }
 
-function onColorFont() {
-    //
+function onColorFont(el) {
+    let color = el.value;
+
+    changeFontColor(color);
+    repaint();
 }
 
 //
