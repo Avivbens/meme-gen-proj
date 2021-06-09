@@ -31,6 +31,12 @@
                     <a href="#" class="menu-option">
                         About
                     </a>
+                    <a href="#" onclick="onSaveMeme()" class="menu-option save-meme-btn hidden">
+                        Save
+                    </a>
+                    <a href="#" onclick="gotoSavedProjPage()" class="menu-option saved-memes">
+                        My Projects
+                    </a>
                 </div>
             </nav>
         </header>
@@ -131,7 +137,7 @@
 
         </section>
 
-        <main class="main-container">
+        <main class="main-container hidden">
 
             <aside class="filer-bar">
                 <input type="text" class="search-input input" placeholder="Search">
@@ -147,6 +153,8 @@
             </section>
         </main>
 
+        <section class="saved-proj-container">
+        </section>
 
     </div>
 

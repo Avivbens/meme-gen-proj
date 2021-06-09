@@ -65,7 +65,7 @@ body {
 }
 
 .menu-option:last-child {
-    margin-inline-end: 6rem;
+    margin-inline-end: 1rem;
 }
 
 .menu-option.selected {
@@ -327,6 +327,43 @@ body {
 .meme-img:hover {
     cursor: pointer;
     opacity: 0.75;
+}
+
+/**** Saved projects main container ****/
+.saved-proj-container {
+    overflow-y: scroll;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 200px;
+    padding: 20px;
+    height: 75vh;
+    gap: 20px;
+}
+
+.saved-proj-box {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+}
+
+.saved-proj-box > img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.saved-proj-desc {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    color: rgb(0, 0, 0);
+    background-color: rgba(167, 167, 167, 0.493);
+    border-radius: 5px;
+    padding: 10px;
 }
 
 /************ Font Faces ************/

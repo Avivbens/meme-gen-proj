@@ -56,7 +56,7 @@ function initMeme() {
     ];
 
     gMeme = {
-        selectedImgId: 5,
+        selectedImgId: 1,
         selectedLineIdx: 0,
         lines: [
             {
@@ -95,21 +95,37 @@ function getCurrentImg() {
     return img;
 }
 
+function getImageById(id) {
+    let imgById = gImgs.find((img) => {
+        return img.id === +id;
+    });
+
+    return imgById;
+}
+
 function getCurrentMeme() {
     return gMeme;
 }
 
 /**
- * Set current meme img
- * @param {Image} img
+ * Set current meme img by element from dom
+ * @param {Element} img
  */
-function setCurrentMemeImg(img) {
+function setCurrentMemeImgByEl(img) {
     let imgId = img.dataset['id'];
     gMeme.selectedImgId = imgId;
 }
 
+function setCurrentMemeImgId(imgId) {
+    gMeme.selectedImgId = +imgId;
+}
+
 function setCurrentSelectedLine(idx) {
-    gMeme.selectedLineIdx = idx;
+    gMeme.selectedLineIdx = +idx;
+}
+
+function setAllMemeProp(meme) {
+    gMeme = meme;
 }
 
 function getCurrentLine() {
