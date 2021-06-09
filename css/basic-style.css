@@ -28,3 +28,7 @@ input:placeholder-shown {
     background: linear-gradient(0.25turn, #0f9ab4, #30bb73);
     box-shadow: 2px 3px 11px 0px #0000007a;
 }
+
+.hidden {
+    display: none;
+}

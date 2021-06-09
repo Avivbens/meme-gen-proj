@@ -1,5 +1,8 @@
 'use strict';
 
+var gCanvas;
+var gCtx;
+
 var gAllObjectOnCanvas;
 
 const gTouchEvs = ['touchstart', 'touchmove', 'touchend'];
@@ -18,6 +21,9 @@ var gFreeStylePath;
 var gDensity;
 
 function initCanvasService() {
+    gCanvas = document.getElementById('my-canvas');
+    gCtx = gCanvas.getContext('2d');
+
     resizeCanvas();
 
     gAllObjectOnCanvas = [];
@@ -34,6 +40,20 @@ function initCanvasService() {
     gFreeStylePath = [];
 
     gStringToPrint = '';
+}
+
+function resizeCanvas() {
+    var elContainer = document.querySelector('.canvas-container');
+
+    // Note: changing the canvas dimension this way clears the canvas
+    gCanvas.width = elContainer.offsetWidth;
+    gCanvas.height = elContainer.offsetHeight;
+}
+
+function resizeCanvasByImageSize(img) {
+    // Note: changing the canvas dimension this way clears the canvas
+    gCanvas.width = img.offsetWidth;
+    gCanvas.height = img.offsetHeight;
 }
 
 function setShape(option) {

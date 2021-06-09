@@ -54,6 +54,39 @@ body {
     color: #21ac91;
 }
 
+/* Editor container */
+.editor-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    width: 90vw;
+    padding: 15px;
+    gap: 50px;
+}
+.canvas-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 32.8rem;
+    height: 26.875rem;
+    background-color: #383b42;
+    border-radius: 30px;
+}
+
+#my-canvas {
+    width: 100%;
+}
+
+.edit-prop-container {
+    width: 32.8rem;
+    height: 26.875rem;
+    background-color: #383b42;
+    border-radius: 30px;
+}
+
+/* Grid main container */
+
 .main-container {
     display: flex;
     flex-direction: column;
@@ -105,7 +138,15 @@ body {
     height: 100%;
     object-fit: scale-down;
     border-radius: 15px;
+    opacity: 1;
 }
+
+.meme-img:hover {
+    cursor: pointer;
+    opacity: 0.75;
+}
+
+/************ Font Faces ************/
 
 @font-face {
     font-family: Poppins;
