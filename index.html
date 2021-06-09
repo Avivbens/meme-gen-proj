@@ -26,16 +26,13 @@
                         Gallery
                     </a>
                     <a href="#" class="menu-option">
-                        Memes
-                    </a>
-                    <a href="#" class="menu-option">
                         About
                     </a>
                     <a href="#" onclick="onSaveMeme()" class="menu-option save-meme-btn hidden">
                         Save
                     </a>
                     <a href="#" onclick="gotoSavedProjPage()" class="menu-option saved-memes">
-                        My Projects
+                        My Memes
                     </a>
                 </div>
             </nav>
@@ -109,7 +106,7 @@
 
                     <button type="color" class="color-font-btn text-decoration-btn
                     text-decoration-item hover-pointer">
-                        <input oninput="onColorFont(this)" type="color" value="#ffffff"
+                        <input class="hover-pointer" oninput="onColorFont(this)" type="color" value="#ffffff"
                             style="opacity:0; position:absolute; left:0;top:0;width:100%" />
 
                         <img src="img/icons/color-font.png" alt="">
@@ -137,7 +134,7 @@
 
         </section>
 
-        <main class="main-container hidden">
+        <main class="main-container">
 
             <aside class="filer-bar">
                 <input type="text" class="search-input input" placeholder="Search">
@@ -153,7 +150,7 @@
             </section>
         </main>
 
-        <section class="saved-proj-container">
+        <section class="saved-proj-container hidden">
         </section>
 
     </div>

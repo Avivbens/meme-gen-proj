@@ -254,7 +254,7 @@ function onSaveMeme() {
     if (!currentSavedMemes) currentSavedMemes = [];
 
     // Not saving empty memes
-    if (!checkIfNotEmpty) return;
+    // if (!checkIfNotEmpty) return;
 
     currentSavedMemes.push(getCurrentMeme());
 
@@ -263,6 +263,7 @@ function onSaveMeme() {
     gotoMainPage();
 }
 
+// ! Unused
 function checkIfNotEmpty() {
     let currentMeme = getCurrentMeme();
     if (!currentMeme) return false;
