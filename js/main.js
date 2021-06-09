@@ -25,7 +25,11 @@ function renderImages() {
 
 function onChoseImage(el) {
     gChoseImage = el;
-    resizeCanvasByImageSize(el);
+
+    var img = new Image();
+    img.src = el.src;
+
+    resizeCanvasByImageSize(img);
 
     drawImg2(el.src);
     gotoEditor();

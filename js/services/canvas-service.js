@@ -56,8 +56,8 @@ function resizeCanvas() {
 
 function resizeCanvasByImageSize(img) {
     // Note: changing the canvas dimension this way clears the canvas
-    gCanvas.width = img.offsetWidth;
-    gCanvas.height = img.offsetHeight;
+    gCanvas.width = img.width;
+    gCanvas.height = img.height;
 }
 
 function setShape(option) {
