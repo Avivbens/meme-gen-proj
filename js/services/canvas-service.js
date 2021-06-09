@@ -42,6 +42,10 @@ function initCanvasService() {
     gStringToPrint = '';
 }
 
+function getCanvas() {
+    return gCanvas;
+}
+
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
 
@@ -79,7 +83,7 @@ function downloadCanvas(elLink) {
     const data = gCanvas.toDataURL();
     console.log('DATA', data);
     elLink.href = data;
-    elLink.download = 'puki';
+    elLink.download = 'Your Meme';
 }
 
 function setStringToPrint(str) {
@@ -92,9 +96,9 @@ function drawImg() {
     gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawImg2() {
+function drawImg2(src) {
     var img = new Image();
-    img.src = 'img/1.jpg';
+    img.src = src;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
     };

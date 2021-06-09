@@ -32,3 +32,9 @@ input:placeholder-shown {
 .hidden {
     display: none;
 }
+
+.hover-pointer:hover {
+    opacity: 1;
+    cursor: pointer;
+    filter: contrast(150%);
+}

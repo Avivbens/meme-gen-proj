@@ -26,6 +26,8 @@ function renderImages() {
 function onChoseImage(el) {
     gChoseImage = el;
     resizeCanvasByImageSize(el);
+
+    drawImg2(el.src);
     gotoEditor();
 }
 
