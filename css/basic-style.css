@@ -1,0 +1,30 @@
+a {
+    text-decoration: none;
+}
+
+input {
+    background-color: #22252c;
+    color: #b46f6f;
+    font-family: 'Roboto', sans-serif;
+    font-size: 1.1rem;
+    padding: 1rem;
+    border: none;
+    border-bottom: 0.3rem solid transparent;
+    border-radius: 3em;
+    display: block;
+    transition: all 0.3s;
+}
+
+input:placeholder-shown {
+    color: #909193;
+}
+
+.btn {
+    border: none;
+    border-radius: 3em;
+    padding: 0.8rem 2rem 0.8rem 2rem;
+    font-size: 1.1rem;
+    color: #fefefe;
+    background: linear-gradient(0.25turn, #0f9ab4, #30bb73);
+    box-shadow: 2px 3px 11px 0px #0000007a;
+}

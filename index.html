@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MeM(e)aker</title>
+
+    <link rel="stylesheet" href="css/main-style.css">
+    <link rel="stylesheet" href="css/basic-style.css">
+</head>
+
+<body onload="init()">
+    <div class="all-container">
+
+
+        <header class="main-header">
+            <nav class="nav-bar">
+                <div class="logo">
+                    <h3>logo</h3>
+                </div>
+
+                <div class="menu-options">
+                    <a href="" class="menu-option">
+                        Gallery
+                    </a>
+                    <a href="" class="menu-option">
+                        Memes
+                    </a>
+                    <a href="" class="menu-option">
+                        About
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+
+        <main class="main-container">
+
+            <aside class="filer-bar">
+                <input type="text" class="search-input input" placeholder="Search">
+                <div class="filter-options-container">
+                    <a href="" class="filter-option">Funny</a>
+                </div>
+                <button class="btn">
+                    More
+                </button>
+            </aside>
+
+            <section class="main-images-container">
+            </section>
+        </main>
+
+
+    </div>
+
+    <script src="js/lib/hammer.min.js"></script>
+    <script src="js/services/storage-service.js"></script>
+    <script src="js/services/canvas-service.js"></script>
+    <script src="js/services/meme-service.js"></script>
+    <script src="js/services/upload-service.js"></script>
+    <script src="js/main.js"></script>
+</body>
+
+</html>
