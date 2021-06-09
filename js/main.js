@@ -18,7 +18,7 @@ function renderImages() {
 
     var strHTMLs = allImages.map((img) => {
         return `
-        <div class="meme-img-box">
+        <div class="meme-img-box hover-pointer">
             <img data-id="${img.id}" class="meme-img" onclick="onChooseImage(this)" src="${img.url}" alt="">
         </div>
         `;
@@ -41,6 +41,7 @@ function renderSavedProj() {
         class="saved-proj-box hover-pointer">
             <img src="${currentImg.url}" alt="">
             <span class="saved-proj-desc">${proj.lines[0].txt}</span>
+            <button onclick="removeSavedProj(event, '${idx}')" class="remove-saved-proj-btn hover-pointer">✖</button>
         </div>
         `;
     });
@@ -288,6 +289,17 @@ function onChooseSavedProg(projIdx) {
     resizeCanvasByImageSize(img);
     gotoEditor();
     repaint();
+}
+
+function removeSavedProj(ev, idx) {
+    ev.stopPropagation();
+
+    var allSavedProjs = loadFormStorage();
+
+    allSavedProjs.splice(idx, 1);
+    saveToLocal(allSavedProjs);
+
+    renderSavedProj();
 }
 
 // ! unused

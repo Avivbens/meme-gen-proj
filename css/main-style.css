@@ -84,6 +84,7 @@ body {
     padding: 15px;
     gap: 2vw;
 }
+
 .canvas-container {
     display: flex;
     justify-content: center;
@@ -97,7 +98,8 @@ body {
 }
 
 #my-canvas {
-    width: 100%;
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .edit-prop-container {
@@ -314,6 +316,7 @@ body {
     height: 100%;
     width: 100%;
     border-radius: 15px;
+    opacity: 0.9;
 }
 
 .meme-img {
@@ -321,13 +324,12 @@ body {
     height: 100%;
     object-fit: cover;
     border-radius: 15px;
-    opacity: 1;
 }
 
-.meme-img:hover {
+/* .meme-img:hover {
     cursor: pointer;
     opacity: 0.75;
-}
+} */
 
 /**** Saved projects main container ****/
 .saved-proj-container {
@@ -337,6 +339,7 @@ body {
     grid-auto-rows: 200px;
     padding: 20px;
     height: 75vh;
+    width: 90%;
     gap: 20px;
 }
 
@@ -364,6 +367,16 @@ body {
     background-color: rgba(167, 167, 167, 0.493);
     border-radius: 5px;
     padding: 10px;
+}
+
+.remove-saved-proj-btn {
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    width: 30px;
+    height: 30px;
+    border: none;
+    border-radius: 50%;
 }
 
 /************ Font Faces ************/
