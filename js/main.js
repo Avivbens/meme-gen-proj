@@ -137,6 +137,10 @@ function gotoMainPage() {
     initMeme();
     document.querySelector('.editor-container').classList.add('vis-hidden');
     document.querySelector('.saved-proj-container').classList.add('hidden');
+
+    // Remove share button
+    document.querySelector('.share-container').innerHTML = '';
+
     document.querySelector('.main-container').classList.remove('hidden');
 
     // Remove save meme button
@@ -431,6 +435,13 @@ function onMoveCurrLineCanvas(position) {
     repaint();
 }
 
+function onDownloadCanvas(el) {
+    // Clear selected line
+    setCurrentSelectedLine(-1);
+    repaint();
+
+    downloadCanvas(el);
+}
 // ***********
 
 /**

@@ -58,6 +58,10 @@
             </section>
         </main>
 
+        <section class="saved-proj-container hidden">
+        </section>
+
+
         <section class="editor-container vis-hidden">
             <div class="canvas-container">
                 <canvas id="my-canvas" height="400" width="400"></canvas>
@@ -139,21 +143,23 @@
                     <img src="img/stickers/004.png" alt="" class="sticker-img hover-pointer">
                 </div>
 
-                <div class="share-download-container">
-                    <button class="export-btn share-btn hover-pointer">
+                <form class="share-download-container" action="" method="POST" enctype="multipart/form-data"
+                    onsubmit="uploadImg(this, event)">
+                    <input name="img" id="imgData" type="hidden" />
+                    <button class="export-btn share-btn hover-pointer" type="submit">
                         <img src="img/icons/share.png" alt="">
-                        <span>Share</span>
+                        <a>Publish</a>
                     </button>
+
                     <button class="export-btn download-btn hover-pointer">
                         <img src="img/icons/download.png" alt="">
-                        <span>Download</span>
+                        <a href="#" onclick="onDownloadCanvas(this)">Download</a>
                     </button>
-                </div>
+                    <div class="export-btn share-container"></div>
+                </form>
+
             </div>
 
-        </section>
-
-        <section class="saved-proj-container hidden">
         </section>
 
     </div>

@@ -248,11 +248,17 @@ body {
     border-radius: 10px;
     padding: 5px 12px;
     font-family: Poppins, sans-serif;
+    max-height: 40px;
 }
 
-.export-btn > span {
+.export-btn > a {
     color: #ffffff;
     margin-inline-start: 15px;
+}
+
+.export-btn:last-child {
+    position: relative;
+    right: 35px;
 }
 
 .download-btn {
