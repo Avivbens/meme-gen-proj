@@ -139,6 +139,8 @@ function gotoMainPage() {
     // Remove save meme button
     document.querySelector('.save-meme-btn').classList.add('hidden');
     document.querySelector('.saved-memes').classList.remove('hidden');
+
+    renderImgs(getImages());
 }
 
 function gotoSavedProjPage() {
@@ -190,9 +192,9 @@ function updateSearchWordsSize() {
         let size = clicksMap[wordKey];
 
         let ratio = size / sumClicks;
-        let diff = 25 * ratio + 16;
+        let diff = 4.687 * ratio + 1;
 
-        elWord.style.fontSize = diff + 'px';
+        elWord.style.fontSize = diff + 'rem';
     });
 }
 
@@ -204,6 +206,11 @@ function filerImagesByString(imgs, txt) {
     });
 
     return imgsForDis;
+}
+
+function clearCurrentFilter() {
+    document.querySelector('.search-input').value = '';
+    renderImgs(getImages());
 }
 
 /**
@@ -275,13 +282,23 @@ function clearInput(el) {
 }
 
 /**
- * Set th current text value inside the input
+ * Set text value inside the input
  * @param {String} txt
  */
 function setInputTxt(txt) {
     var elInput = document.querySelector('.text-editor-input');
 
     elInput.value = txt;
+}
+
+/**
+ * Set font value inside select font box
+ * @param {String} val
+ */
+function setFontSelect(val) {
+    var elSelect = document.querySelector('.select-font-decoration');
+
+    elSelect.value = val;
 }
 
 // ** Editor button add / remove / toggle
@@ -294,6 +311,7 @@ function onToggleLines() {
     let currentLine = getCurrentLine();
 
     setInputTxt(currentLine.txt);
+    setFontSelect(currentLine.font);
 
     repaint();
 }
@@ -363,7 +381,6 @@ function onFontPos(newPos) {
  * @param {String} font Font-Family
  */
 function onChangeFont(font) {
-    console.log(font);
     changeFontStyle(font);
     repaint();
 }

@@ -185,6 +185,12 @@ function drawArc(x, y, r) {
 }
 
 function drawTextByLine(line, idx) {
+    // Text
+    gCtx.font = `${line.size}px ${line.font}`;
+
+    // Adding bold if needed
+    if (line.isBold) gCtx.font = `bold ${line.size}px ${line.font}`;
+
     // Saving current position of each line
     var currentPos = { x: line.x, y: line.y };
     if (!line.x && !line.y) {

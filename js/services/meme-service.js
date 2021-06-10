@@ -66,8 +66,8 @@ function initMeme() {
                 color: 'white',
                 isUnderline: false,
                 isBold: false,
-                x: 250,
-                y: 80,
+                // x: 250,
+                // y: 80,
             },
         ],
     };

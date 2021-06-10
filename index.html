@@ -41,7 +41,10 @@
         <main class="main-container">
 
             <aside class="filer-bar">
-                <input oninput="onSearch(this)" type="text" class="search-input input" placeholder="Search">
+                <div class="serach-bar">
+                    <input oninput="onSearch(this)" type="text" class="search-input input" placeholder="Search">
+                    <button onclick="clearCurrentFilter()" class="clear-search-btn btn">✖</button>
+                </div>
 
                 <div class="filter-options-container">
                     <a href="" class="filter-option">Funny</a>

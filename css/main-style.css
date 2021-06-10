@@ -298,6 +298,23 @@ body {
     margin-inline-end: 20px;
 }
 
+.serach-bar {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.search-input {
+    flex-grow: 1;
+}
+
+.clear-search-btn {
+    position: absolute;
+    right: 2px;
+    height: 90%;
+}
+
 .filter-options-container {
     display: flex;
     justify-content: center;
