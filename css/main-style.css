@@ -308,6 +308,11 @@ body {
 }
 .filter-options-container a {
     color: #fefefe;
+    text-shadow: 2px 2px 4px black;
+}
+
+.filter-word {
+    margin-inline-end: 10px;
 }
 
 .main-images-container {

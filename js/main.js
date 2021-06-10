@@ -9,6 +9,8 @@ function init() {
     renderSavedProj();
 
     initCanvasService();
+    renderSortWords(5);
+    updateSearchWordsSize();
 
     // window.addEventListener('resize', resizeCanvas);
 }
@@ -152,7 +154,87 @@ function gotoSavedProjPage() {
 // ********* Filter bar
 
 function onSearch(elInput) {
+    let allImgs = getImages();
     let val = elInput.value;
+
+    let imgsForDis = filerImagesByString(allImgs, val);
+
+    renderImgs(imgsForDis);
+}
+
+function onClickSearchWord(word) {
+    let allImgs = getImages();
+
+    let imgsForDis = filerImagesByString(allImgs, word);
+
+    renderImgs(imgsForDis);
+
+    updateWordsCounter(word);
+    updateSearchWordsSize();
+}
+
+function updateSearchWordsSize() {
+    let clicksMap = loadFormStorage('words_popularity');
+
+    let sumClicks = 0;
+    for (const word in clicksMap) {
+        if (Object.hasOwnProperty.call(clicksMap, word)) {
+            const times = clicksMap[word];
+            sumClicks += times;
+        }
+    }
+
+    let elWords = document.querySelectorAll('.filter-options-container > a');
+    elWords.forEach((elWord) => {
+        let wordKey = elWord.dataset.word;
+        let size = clicksMap[wordKey];
+
+        let ratio = size / sumClicks;
+        let diff = 25 * ratio + 16;
+
+        elWord.style.fontSize = diff + 'px';
+    });
+}
+
+function filerImagesByString(imgs, txt) {
+    let imgsForDis = imgs.filter((img) => {
+        return img.keywords.some((keyword) => {
+            return keyword.includes(txt);
+        });
+    });
+
+    return imgsForDis;
+}
+
+/**
+ * Render all key words into sort area
+ */
+function renderSortWords(length) {
+    let allKeyWords = generateKeyWords();
+
+    var elContainer = document.querySelector('.filter-options-container');
+
+    let strHTMLs = '';
+    let wordsArr = [];
+    for (const word in allKeyWords) {
+        if (Object.hasOwnProperty.call(allKeyWords, word)) {
+            const times = allKeyWords[word];
+
+            wordsArr.push(`
+            <a href="#" data-word="${word}" 
+            class="filter-option filter-word" style="font-size: 
+            ${(times * 250) / getImages().length}px"
+            onclick="onClickSearchWord('${word}')">
+            ${word}</a>
+            `);
+        }
+    }
+
+    for (let i = 0; i < length && i < wordsArr.length; i++) {
+        strHTMLs += wordsArr[i];
+    }
+
+    elContainer.innerHTML = strHTMLs;
 }
 
 // ******* Editor

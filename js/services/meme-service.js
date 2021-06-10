@@ -6,7 +6,6 @@ var gImgs;
 var gMeme;
 
 function initMeme() {
-    gKeywords = { happy: 12, 'funny puk': 1 };
     gImgs = [
         { id: 1, url: 'img/2.jpg', keywords: ['happy'] },
         { id: 2, url: 'img/003.jpg', keywords: ['trump', 'angry'] },
@@ -72,6 +71,21 @@ function initMeme() {
             },
         ],
     };
+
+    gKeywords = { happy: 12, 'funny puk': 1 };
+}
+
+function generateKeyWords() {
+    let copyOfImgs = JSON.parse(JSON.stringify(gImgs));
+
+    let keysMap = copyOfImgs.reduce((acc, img) => {
+        img.keywords.forEach((keyword) => {
+            acc[keyword] = acc[keyword] ? acc[keyword] + 1 : 1;
+        });
+        return acc;
+    }, {});
+
+    return keysMap;
 }
 
 /**
@@ -139,6 +153,22 @@ function getLastLine() {
 
 function getLastLineIdx() {
     return gMeme.lines.length - 1;
+}
+
+/**
+ * Count and save clicks on search words
+ * @param {String} word
+ * @returns the current clicks value of the word
+ */
+function updateWordsCounter(word) {
+    let wordsCounter = loadFormStorage('words_popularity');
+    if (!wordsCounter) wordsCounter = {};
+
+    wordsCounter[word] = wordsCounter[word] ? wordsCounter[word] + 1 : 1;
+
+    saveToLocal(wordsCounter, 'words_popularity');
+
+    return wordsCounter[word];
 }
 
 // ****
