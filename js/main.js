@@ -113,11 +113,7 @@ function addListeners() {
         let y = ev.changedPointers[0].offsetY;
         // TODO
 
-        checkSelection({ x, y });
-        // drawText('test', { x, y });
-
         console.log('tap');
-        console.log('{ x, y } :>> ', { x, y });
     });
 }
 
@@ -455,6 +451,42 @@ function onColorFont(el) {
 function onMoveCurrLineCanvas(position) {
     let currentLine = getCurrentLine();
     if (!currentLine) return;
+
+    // if (currentLine.isSticker) {
+    //     // Calculating point of drag position
+    //     let dotPosition = {
+    //         x: currentLine.x,
+    //         y: currentLine.y,
+    //     };
+    //     let radius = 50;
+
+    //     if (
+    //         position.x * calcImageRatio() <=
+    //             dotPosition.x * calcImageRatio() + radius &&
+    //         position.x * calcImageRatio() >=
+    //             dotPosition.x * calcImageRatio() - radius &&
+    //         position.y * calcImageRatio() <=
+    //             dotPosition.y * calcImageRatio() + radius &&
+    //         position.y * calcImageRatio() >=
+    //             dotPosition.y * calcImageRatio() - radius
+    //     ) {
+    //         // TODO scale img
+    //         console.log('in');
+    //         //
+    //         let dis = Math.sqrt(
+    //             (Math.pow(currentLine.x - position.x), 2) +
+    //                 (Math.pow(currentLine.y - position.y), 2),
+    //         );
+    //         // dis = gLastDis - dis;
+    //         // gLastDis = dis;
+
+    //         currentLine.size = dis + currentLine.size;
+    //         if (currentLine.size < 0) currentLine.size * -1;
+
+    //         repaint();
+    //         return;
+    //     }
+    // }
 
     setNewYPosition(position.y * 1.2);
     setNewXPosition(position.x);

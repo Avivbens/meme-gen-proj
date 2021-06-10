@@ -357,16 +357,16 @@ function checkSelection(point) {
 function setNewYPosition(yPos) {
     let currentLine = getCurrentLine();
 
-    currentLine.y = yPos * _calcImageRatio();
+    currentLine.y = yPos * calcImageRatio();
 }
 
 function setNewXPosition(xPos) {
     let currentLine = getCurrentLine();
 
-    currentLine.x = xPos * _calcImageRatio();
+    currentLine.x = xPos * calcImageRatio();
 }
 
-function _calcImageRatio() {
+function calcImageRatio() {
     let currImg = getCurrentImg();
 
     return (currImg.height * 1.4) / currImg.width;

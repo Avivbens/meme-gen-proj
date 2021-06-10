@@ -128,6 +128,10 @@ function drawImg2(line, idx) {
         gCtx.fillRect(line.x - 15, line.y - 15, line.size + 35, line.size + 35);
     }
 
+    // Point of scale
+    // drawArc(line.x + 20 + line.size, line.y + line.size + 20, 10);
+    // drawArc(line.x - 15, line.y - 15, 10);
+
     gCtx.drawImage(img, line.x, line.y, line.size, line.size);
 }
 
@@ -199,9 +203,9 @@ function drawArc(x, y, r) {
     gCtx.beginPath();
     gCtx.lineWidth = 3;
     gCtx.arc(x, y, r, 0, 2 * Math.PI);
-    gCtx.strokeStyle = gCurrentColor;
+    gCtx.strokeStyle = 'black';
     gCtx.stroke();
-    gCtx.fillStyle = gCurrentBgColor;
+    gCtx.fillStyle = 'lightblue';
     gCtx.fill();
 }
 
