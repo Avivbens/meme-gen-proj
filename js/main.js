@@ -1,6 +1,7 @@
 'use strict';
 
 const FONT_SIZE_CHANGE_STEPS = 2;
+var gShownKeyWordsCount;
 
 function init() {
     initMeme();
@@ -9,7 +10,9 @@ function init() {
     renderSavedProj();
 
     initCanvasService();
-    renderSortWords(5);
+
+    gShownKeyWordsCount = 5;
+    renderSortWords(gShownKeyWordsCount);
     updateSearchWordsSize();
 
     // window.addEventListener('resize', resizeCanvas);
@@ -242,6 +245,21 @@ function renderSortWords(length) {
     }
 
     elContainer.innerHTML = strHTMLs;
+}
+
+/**
+ * Open more key words
+ */
+function toggleMoreKeyWords() {
+    gShownKeyWordsCount = gShownKeyWordsCount === 5 ? 15 : 5;
+    var elContainer = document.querySelector('.filter-options-container');
+    elContainer.classList.toggle('keywords-open');
+
+    // var elMoreBtn = document.querySelector('.more-key-words-btn');
+    // elMoreBtn.classList.toggle('keywords-open');
+
+    renderSortWords(gShownKeyWordsCount);
+    updateSearchWordsSize();
 }
 
 // ******* Editor

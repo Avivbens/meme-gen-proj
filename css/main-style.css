@@ -286,16 +286,21 @@ body {
 
 .filer-bar {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     width: 100%;
-    height: 60px;
     margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 20px 0;
+}
+
+.filer-bar > * {
+    max-height: 60px;
 }
 
 .filer-bar > *:not(:last-child) {
     flex-grow: 1;
-    margin-inline-end: 20px;
+    margin-inline-end: 1.25rem;
 }
 
 .serach-bar {
@@ -319,10 +324,21 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     background-color: #87898d;
-    height: 90%;
+    max-height: 100px;
     border-radius: 3em;
 }
+
+.filter-options-container.keywords-open {
+    flex-wrap: wrap;
+    max-height: 160px;
+}
+
+/* .more-key-words-btn.keywords-open {
+    margin-bottom: 40px;
+} */
+
 .filter-options-container a {
     color: #fefefe;
     text-shadow: 2px 2px 4px black;
