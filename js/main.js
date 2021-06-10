@@ -359,6 +359,7 @@ function onAddNewLine() {
 
     addNewLine();
     setCurrentSelectedLine(getCurrentMeme().lines.length - 1);
+    setFontSelect('Impact');
     setInputTxt('');
 
     repaint();
