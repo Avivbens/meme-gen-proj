@@ -24,7 +24,7 @@ function initCanvasService() {
     gCanvas = document.getElementById('my-canvas');
     gCtx = gCanvas.getContext('2d');
 
-    resizeCanvas();
+    addListeners();
 
     gAllObjectOnCanvas = [];
 
@@ -48,6 +48,10 @@ function getCanvas() {
 
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
+
+    let currImg = getCurrentImg();
+    elContainer.style.width = currImg.width;
+    elContainer.style.height = currImg.height;
 
     // Note: changing the canvas dimension this way clears the canvas
     gCanvas.width = elContainer.offsetWidth;
@@ -101,8 +105,30 @@ function drawImg2(src) {
     img.src = src;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
+        // drawImageScaled(img);
         drawMeme();
     };
+}
+
+// ! Unused
+function drawImageScaled(img) {
+    var hRatio = gCanvas.width / img.width;
+    var vRatio = gCanvas.height / img.height;
+    var ratio = Math.max(hRatio, vRatio);
+    var centerShift_x = (gCanvas.width - img.width * ratio) / 2;
+    var centerShift_y = (gCanvas.height - img.height * ratio) / 2;
+    gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
+    gCtx.drawImage(
+        img,
+        0,
+        0,
+        img.width,
+        img.height,
+        centerShift_x,
+        centerShift_y,
+        img.width * ratio,
+        img.height * ratio,
+    );
 }
 
 function drawImg3() {

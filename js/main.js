@@ -9,6 +9,8 @@ function init() {
     renderSavedProj();
 
     initCanvasService();
+
+    // window.addEventListener('resize', resizeCanvas);
 }
 
 function renderImages() {
@@ -58,9 +60,62 @@ function onChooseImage(el) {
     img.src = el.src;
 
     resizeCanvasByImageSize(img);
+    // resizeCanvas();
 
     gotoEditor();
     repaint();
+}
+
+// ******** Listeners
+
+function addListeners() {
+    var elCanvas = document.querySelector('canvas');
+
+    // if (gTouchEvs.includes(ev.type)) {
+    //     ev.preventDefault();
+    // }
+
+    // Pan on
+    var hammerTime = new Hammer(elCanvas);
+    hammerTime.on('panstart', function (ev) {
+        let x = ev.changedPointers[0].offsetX;
+        let y = ev.changedPointers[0].offsetY;
+        // TODO
+        console.log('pan on');
+    });
+
+    // Pan move
+    hammerTime.on('panmove', function (ev) {
+        let x = ev.changedPointers[0].offsetX;
+        let y = ev.changedPointers[0].offsetY;
+        // TODO
+        console.log('pan move');
+    });
+
+    // Pan off
+    hammerTime.on('panend', function (ev) {
+        let x = ev.changedPointers[0].offsetX;
+        let y = ev.changedPointers[0].offsetY;
+        // TODO
+        console.log('pan off');
+    });
+
+    // Single tap
+    hammerTime.on('tap', function (ev) {
+        let x = ev.changedPointers[0].offsetX;
+        let y = ev.changedPointers[0].offsetY;
+        // TODO
+
+        checkSelection({ x, y });
+        drawText('test', { x, y });
+
+        // let pos = _calcClickPos({ x, y });
+        // console.log('🚀 ~ pos', pos);
+        // drawText('test', pos);
+
+        console.log('tap');
+        console.log('{ x, y } :>> ', { x, y });
+    });
 }
 
 // **** page nav
@@ -68,7 +123,7 @@ function onChooseImage(el) {
 function gotoEditor() {
     document.querySelector('.main-container').classList.add('hidden');
     document.querySelector('.saved-proj-container').classList.add('hidden');
-    document.querySelector('.editor-container').classList.remove('hidden');
+    document.querySelector('.editor-container').classList.remove('vis-hidden');
 
     // Display save meme button
     document.querySelector('.save-meme-btn').classList.remove('hidden');
@@ -77,7 +132,7 @@ function gotoEditor() {
 
 function gotoMainPage() {
     initMeme();
-    document.querySelector('.editor-container').classList.add('hidden');
+    document.querySelector('.editor-container').classList.add('vis-hidden');
     document.querySelector('.saved-proj-container').classList.add('hidden');
     document.querySelector('.main-container').classList.remove('hidden');
 
@@ -87,7 +142,7 @@ function gotoMainPage() {
 }
 
 function gotoSavedProjPage() {
-    document.querySelector('.editor-container').classList.add('hidden');
+    document.querySelector('.editor-container').classList.add('vis-hidden');
     document.querySelector('.main-container').classList.add('hidden');
     document.querySelector('.saved-proj-container').classList.remove('hidden');
 
@@ -288,6 +343,8 @@ function onChooseSavedProg(projIdx) {
     img.src = getImageById(currentProj.selectedImgId).url;
 
     resizeCanvasByImageSize(img);
+    // resizeCanvas();
+
     gotoEditor();
     repaint();
 }
@@ -301,6 +358,18 @@ function removeSavedProj(ev, idx) {
     saveToLocal(allSavedProjs);
 
     renderSavedProj();
+}
+
+// ! Unused
+function _calcClickPos(position) {
+    //
+    let can = getCanvas();
+    let diffX = can.width - position.x;
+    let diffY = can.height - position.y;
+    console.log('diffX, diffY :>> ', diffX, diffY);
+
+    return { x: diffX, y: diffY };
+    // return { x: position.x - diffX, y: position.y - diffY };
 }
 
 // ! unused

@@ -1,3 +1,7 @@
+html {
+    user-select: none;
+}
+
 body {
     font-family: Poppins, sans-serif;
     background-color: #1f2525;

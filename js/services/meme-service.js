@@ -287,3 +287,13 @@ function arrangePositionByAlign() {
             break;
     }
 }
+
+// ************ Interactive with canvas
+
+function checkSelection(point) {
+    var selectedLine = gMeme.lines.find((line) => {
+        return point.y <= line.y + line.size * 3 && point.y >= line.y;
+    });
+
+    if (!selectedLine) return;
+}

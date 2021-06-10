@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/basic-style.css">
 </head>
 
-<body onload="init()">
+<body onload="init()" oncontextmenu="return false">
     <div class="all-container">
 
 
@@ -38,8 +38,23 @@
             </nav>
         </header>
 
+        <main class="main-container">
 
-        <section class="editor-container hidden">
+            <aside class="filer-bar">
+                <input type="text" class="search-input input" placeholder="Search">
+                <div class="filter-options-container">
+                    <a href="" class="filter-option">Funny</a>
+                </div>
+                <button class="btn">
+                    More
+                </button>
+            </aside>
+
+            <section class="main-images-container">
+            </section>
+        </main>
+
+        <section class="editor-container vis-hidden">
             <div class="canvas-container">
                 <canvas id="my-canvas" height="400" width="400"></canvas>
             </div>
@@ -133,22 +148,6 @@
             </div>
 
         </section>
-
-        <main class="main-container">
-
-            <aside class="filer-bar">
-                <input type="text" class="search-input input" placeholder="Search">
-                <div class="filter-options-container">
-                    <a href="" class="filter-option">Funny</a>
-                </div>
-                <button class="btn">
-                    More
-                </button>
-            </aside>
-
-            <section class="main-images-container">
-            </section>
-        </main>
 
         <section class="saved-proj-container hidden">
         </section>

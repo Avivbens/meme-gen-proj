@@ -40,6 +40,10 @@ input:placeholder-shown {
     display: none;
 }
 
+.vis-hidden {
+    visibility: hidden;
+}
+
 .hover-pointer:hover {
     opacity: 1;
     cursor: pointer;
