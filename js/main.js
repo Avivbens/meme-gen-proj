@@ -213,7 +213,7 @@ function updateSearchWordsSize() {
 function filerImagesByString(imgs, txt) {
     let imgsForDis = imgs.filter((img) => {
         return img.keywords.some((keyword) => {
-            return keyword.includes(txt);
+            return keyword.toUpperCase().includes(txt.toUpperCase());
         });
     });
 
