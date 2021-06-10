@@ -467,12 +467,18 @@ body {
 /************ Media ************/
 
 @media (max-width: 920px) {
+    body {
+        overflow-x: hidden;
+    }
     .editor-container {
         overflow-y: scroll;
         height: 75vh;
     }
 }
 @media (max-width: 530px) {
+    body {
+        overflow-x: hidden;
+    }
     .menu-options {
         display: flex;
         align-items: center;
