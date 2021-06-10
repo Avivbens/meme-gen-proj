@@ -236,7 +236,7 @@ function drawTextByLine(line, idx) {
     if (line.isBold) gCtx.font = `bold ${line.size}px ${line.font}`;
 
     gCtx.fillStyle = line.color;
-    gCtx.strokeStyle = 'black';
+    gCtx.strokeStyle = line.strokeColor;
 
     gCtx.textBaseline = 'alphabetic';
 

@@ -72,8 +72,12 @@
             </div>
 
             <div class="edit-prop-container">
-                <input oninput="onInputTxt(this)" class="text-editor-input" type="text" placeholder="Put your text here"
-                    onblur="clearInput(this)">
+                <div class="editor-input-box">
+                    <input oninput="onInputTxt(this)" class="text-editor-input" type="text"
+                        placeholder="Put your text here" )>
+                    <button onclick="clearMemeEditorInput()" class="clear-input-btn btn">✖</button>
+                </div>
+
 
                 <div class="add-remove-btns">
                     <button onclick="onToggleLines()" class="action-btn change-position-btn hover-pointer">
@@ -126,10 +130,14 @@
                         <img src="img/icons/bold-font.png" alt="">
                     </button>
 
-                    <button onclick="onUnderlineFont()" class="underline-font-btn text-decoration-btn 
+                    <button type="color" class="stroke-color-font-btn text-decoration-btn 
                     text-decoration-item hover-pointer">
-                        <img src="img/icons/undeline-font.png" alt="">
+                        <input class="hover-pointer" oninput="onChangeStrokeColor(this)" type="color" value="#ffffff"
+                            style="opacity:0; position:absolute; left:0;top:0;width:100%" />
+
+                        <img src="img/icons/stroke-color.png" alt="">
                     </button>
+
 
                     <button type="color" class="color-font-btn text-decoration-btn
                     text-decoration-item hover-pointer">

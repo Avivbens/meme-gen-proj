@@ -64,6 +64,7 @@ function initMeme() {
                 font: 'Impact',
                 align: 'middle',
                 color: 'white',
+                strokeColor: 'black',
                 isUnderline: false,
                 isBold: false,
             },
@@ -181,7 +182,9 @@ function updateLineTxt(txt) {
     if (!currentLine) return;
 
     currentLine.txt = txt;
-    arrangePositionByAlign();
+
+    // Canceled so there will be no align while edit txt
+    // arrangePositionByAlign();
 }
 
 // *************
@@ -271,6 +274,14 @@ function changeFontColor(color) {
     currentLine.color = color;
 }
 
+function changeStrokeColor(color) {
+    var currentLine = getCurrentLine();
+
+    if (!currentLine) return;
+
+    currentLine.strokeColor = color;
+}
+
 function toggleBold() {
     var currentLine = getCurrentLine();
 
@@ -279,6 +290,7 @@ function toggleBold() {
     currentLine.isBold = !currentLine.isBold;
 }
 
+// !Unused
 function toggleUnderline() {
     var currentLine = getCurrentLine();
 
@@ -330,6 +342,12 @@ function setNewYPosition(yPos) {
     let currentLine = getCurrentLine();
 
     currentLine.y = yPos * _calcImageRatio();
+}
+
+function setNewXPosition(xPos) {
+    let currentLine = getCurrentLine();
+
+    currentLine.x = xPos * _calcImageRatio();
 }
 
 function _calcImageRatio() {

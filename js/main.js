@@ -308,6 +308,13 @@ function clearInput(el) {
     repaint();
 }
 
+function clearMemeEditorInput() {
+    var el = document.querySelector('.text-editor-input');
+    el.value = '';
+    setCurrentSelectedLine(-1);
+    repaint();
+}
+
 /**
  * Set text value inside the input
  * @param {String} txt
@@ -356,6 +363,8 @@ function onAddNewLine() {
 
     addNewLine();
     setCurrentSelectedLine(getCurrentMeme().lines.length - 1);
+    setInputTxt('');
+
     repaint();
 }
 
@@ -368,7 +377,10 @@ function onDeleteLine() {
 
     // Move input to next line
     let currentLine = getCurrentLine();
-    if (!currentLine) return;
+    if (!currentLine) {
+        setInputTxt('');
+        return;
+    }
     setInputTxt(currentLine.txt);
 }
 
@@ -417,8 +429,8 @@ function onBoldFont() {
     repaint();
 }
 
-function onUnderlineFont() {
-    toggleUnderline();
+function onChangeStrokeColor(el) {
+    changeStrokeColor(el.value);
     repaint();
 }
 
@@ -432,11 +444,11 @@ function onColorFont(el) {
 // *********** Canvas integral
 
 function onMoveCurrLineCanvas(position) {
-    //
     let currentLine = getCurrentLine();
     if (!currentLine) return;
 
     setNewYPosition(position.y * 1.2);
+    setNewXPosition(position.x);
     repaint();
 }
 
