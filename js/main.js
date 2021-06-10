@@ -5,7 +5,7 @@ const FONT_SIZE_CHANGE_STEPS = 2;
 function init() {
     initMeme();
 
-    renderImages();
+    renderAllImgs();
     renderSavedProj();
 
     initCanvasService();
@@ -13,12 +13,15 @@ function init() {
     // window.addEventListener('resize', resizeCanvas);
 }
 
-function renderImages() {
+function renderAllImgs() {
     var allImages = getImages();
+    renderImgs(allImages);
+}
 
+function renderImgs(imgs) {
     var elImagesContainer = document.querySelector('.main-images-container');
 
-    var strHTMLs = allImages.map((img) => {
+    var strHTMLs = imgs.map((img) => {
         return `
         <div class="meme-img-box hover-pointer">
             <img data-id="${img.id}" class="meme-img" onclick="onChooseImage(this)" src="${img.url}" alt="">
@@ -60,7 +63,6 @@ function onChooseImage(el) {
     img.src = el.src;
 
     resizeCanvasByImageSize(img);
-    // resizeCanvas();
 
     gotoEditor();
     repaint();
@@ -88,8 +90,8 @@ function addListeners() {
     hammerTime.on('panmove', function (ev) {
         let x = ev.changedPointers[0].offsetX;
         let y = ev.changedPointers[0].offsetY;
-        // TODO
-        console.log('pan move');
+
+        onMoveCurrLineCanvas({ x, y });
     });
 
     // Pan off
@@ -107,11 +109,7 @@ function addListeners() {
         // TODO
 
         checkSelection({ x, y });
-        drawText('test', { x, y });
-
-        // let pos = _calcClickPos({ x, y });
-        // console.log('🚀 ~ pos', pos);
-        // drawText('test', pos);
+        // drawText('test', { x, y });
 
         console.log('tap');
         console.log('{ x, y } :>> ', { x, y });
@@ -149,6 +147,12 @@ function gotoSavedProjPage() {
     // Remove save meme button
     document.querySelector('.save-meme-btn').classList.add('hidden');
     document.querySelector('.saved-memes').classList.add('hidden');
+}
+
+// ********* Filter bar
+
+function onSearch(elInput) {
+    let val = elInput.value;
 }
 
 // ******* Editor
@@ -296,6 +300,17 @@ function onColorFont(el) {
     let color = el.value;
 
     changeFontColor(color);
+    repaint();
+}
+
+// *********** Canvas integral
+
+function onMoveCurrLineCanvas(position) {
+    //
+    let currentLine = getCurrentLine();
+    if (!currentLine) return;
+
+    setNewYPosition(position.y * 1.2);
     repaint();
 }
 

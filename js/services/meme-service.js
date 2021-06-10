@@ -297,3 +297,15 @@ function checkSelection(point) {
 
     if (!selectedLine) return;
 }
+
+function setNewYPosition(yPos) {
+    let currentLine = getCurrentLine();
+
+    currentLine.y = yPos * _calcImageRatio();
+}
+
+function _calcImageRatio() {
+    let currImg = getCurrentImg();
+
+    return (currImg.height * 1.4) / currImg.width;
+}
