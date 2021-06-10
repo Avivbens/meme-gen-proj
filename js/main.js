@@ -160,6 +160,11 @@ function gotoSavedProjPage() {
     document.querySelector('.saved-memes').classList.add('hidden');
 }
 
+function toggleMenu() {
+    var menuBar = document.querySelector('.menu-options');
+    menuBar.classList.toggle('closed');
+}
+
 // ********* Filter bar
 
 function onSearch(elInput) {

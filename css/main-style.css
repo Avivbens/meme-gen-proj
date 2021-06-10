@@ -68,6 +68,11 @@ body {
     border-radius: 3em;
 }
 
+.menu-option:hover {
+    background-color: #fefefe;
+    color: #21ac91;
+}
+
 .menu-option:last-child {
     margin-inline-end: 1rem;
 }
@@ -436,4 +441,54 @@ body {
 @font-face {
     font-family: Poppins;
     src: url('../fonts/Poppins-Medium.ttf');
+}
+
+/************ Media ************/
+
+@media (max-width: 530px) {
+    .menu-options {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        flex-direction: column;
+        z-index: 200;
+        background-color: gray;
+        border-radius: 20px;
+        height: 65vh;
+        width: 30vh;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        transform: translateX(0%);
+        transition: transform 0.5s;
+    }
+    .menu-options.closed {
+        transform: translateX(130%);
+    }
+    .menu-option {
+        margin-inline-end: 0;
+        padding: 0.3rem 0.7rem;
+        font-size: 1.175rem;
+        border-radius: 3em;
+    }
+    .menu-option:last-child {
+        margin-inline-end: 0;
+    }
+    .open-menu-btn {
+        display: block;
+        position: absolute;
+        top: 30px;
+        right: 30px;
+    }
+    .open-menu-btn > img {
+        height: 30px;
+        width: 30px;
+    }
+    .close-menu-btn {
+        display: block;
+        position: absolute;
+        padding: 5px;
+        top: 15px;
+        right: 15px;
+    }
 }
