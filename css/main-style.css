@@ -462,6 +462,12 @@ body {
 
 /************ Media ************/
 
+@media (max-width: 920px) {
+    .editor-container {
+        overflow-y: scroll;
+        height: 75vh;
+    }
+}
 @media (max-width: 530px) {
     .menu-options {
         display: flex;
@@ -507,9 +513,5 @@ body {
         padding: 5px;
         top: 15px;
         right: 15px;
-    }
-    .editor-container {
-        overflow-y: scroll;
-        height: 75vh;
     }
 }
