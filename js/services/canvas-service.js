@@ -100,7 +100,11 @@ function drawImg() {
     gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
 }
 
-function drawImg2(src) {
+/**
+ * Drawing all Meme properties
+ * @param {String} src
+ */
+function drawCanvas(src) {
     var img = new Image();
     img.src = src;
     img.onload = () => {
@@ -108,6 +112,23 @@ function drawImg2(src) {
         // drawImageScaled(img);
         drawMeme();
     };
+}
+
+/**
+ * Drawing Image on the canvas with rect around
+ * @param {Image} img
+ */
+function drawImg2(line, idx) {
+    var img = new Image();
+    img.src = line.stickerImg.src;
+
+    // Rect
+    if (getCurrentMeme().selectedLineIdx === idx) {
+        gCtx.fillStyle = 'rgb(56 59 66 / 44%)';
+        gCtx.fillRect(line.x - 15, line.y - 15, line.size + 35, line.size + 35);
+    }
+
+    gCtx.drawImage(img, line.x, line.y, line.size, line.size);
 }
 
 // ! Unused
@@ -212,8 +233,6 @@ function drawTextByLine(line, idx) {
             gCanvas.width,
             line.size * 1.5,
         );
-        // gCtx.strokeStyle = 'black';
-        // gCtx.stroke();
     }
 
     // Underline
@@ -327,7 +346,11 @@ function drawMeme() {
 
     if (!meme) return;
     meme.lines.forEach((line, idx) => {
-        drawTextByLine(line, idx);
+        if (!line.isSticker) {
+            drawTextByLine(line, idx);
+        } else {
+            drawImg2(line, idx);
+        }
     });
 }
 
@@ -340,7 +363,7 @@ function getCanvasCenterHeight() {
 }
 
 function repaint() {
-    drawImg2(getCurrentImg().src);
+    drawCanvas(getCurrentImg().src);
 }
 
 function draw() {

@@ -92,12 +92,12 @@
                 </div>
 
                 <div class="text-decoration-container">
-                    <button onclick="onChangeFontSize(1)" class="increase-font-btn text-decoration-btn 
+                    <button onclick="onChangeFontSize(2)" class="increase-font-btn text-decoration-btn 
                     text-decoration-item hover-pointer">
                         <img src="img/icons/a+.png" alt="">
                     </button>
 
-                    <button onclick="onChangeFontSize(-1)" class="decrease-font-btn text-decoration-btn
+                    <button onclick="onChangeFontSize(-2)" class="decrease-font-btn text-decoration-btn
                      text-decoration-item hover-pointer">
                         <img src="img/icons/a-.png" alt="">
                     </button>
@@ -149,10 +149,14 @@
                 </div>
 
                 <div class="stickers-container">
-                    <img src="img/stickers/001.png" alt="" class="sticker-img hover-pointer">
-                    <img src="img/stickers/002.png" alt="" class="sticker-img hover-pointer">
-                    <img src="img/stickers/003.png" alt="" class="sticker-img hover-pointer">
-                    <img src="img/stickers/004.png" alt="" class="sticker-img hover-pointer">
+                    <img onclick="onAddSticker(this)" src="img/stickers/001.png" alt=""
+                        class="sticker-img hover-pointer">
+                    <img onclick="onAddSticker(this)" src="img/stickers/002.png" alt=""
+                        class="sticker-img hover-pointer">
+                    <img onclick="onAddSticker(this)" src="img/stickers/003.png" alt=""
+                        class="sticker-img hover-pointer">
+                    <img onclick="onAddSticker(this)" src="img/stickers/004.png" alt=""
+                        class="sticker-img hover-pointer">
                 </div>
 
                 <form class="share-download-container" action="" method="POST" enctype="multipart/form-data"

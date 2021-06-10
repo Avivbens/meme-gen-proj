@@ -368,6 +368,14 @@ function onAddNewLine() {
     repaint();
 }
 
+function onAddSticker(img) {
+    addSticker(img);
+    setCurrentSelectedLine(getCurrentMeme().lines.length - 1);
+    setInputTxt('');
+
+    repaint();
+}
+
 /**
  * Delete the current boxed line
  */
@@ -402,7 +410,8 @@ function focusLastLine() {
  */
 function onChangeFontSize(diff) {
     changeFontSize(diff * FONT_SIZE_CHANGE_STEPS);
-    arrangePositionByAlign();
+
+    // arrangePositionByAlign();
     repaint();
 }
 

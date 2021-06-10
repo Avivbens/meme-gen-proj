@@ -67,6 +67,7 @@ function initMeme() {
                 strokeColor: 'black',
                 isUnderline: false,
                 isBold: false,
+                isSticker: false,
             },
         ],
     };
@@ -204,6 +205,19 @@ function addNewLine() {
     gMeme.selectedLineIdx++;
 }
 
+function addSticker(img) {
+    gMeme.lines.push({
+        txt: '',
+        size: 100,
+        x: 200,
+        y: 200,
+        isSticker: true,
+        stickerImg: img,
+    });
+
+    gMeme.selectedLineIdx++;
+}
+
 /**
  * Delete edited line
  */
@@ -216,6 +230,8 @@ function deleteLine() {
     gMeme.lines.splice(currentIdx, 1);
 
     gMeme.selectedLineIdx--;
+    if (gMeme.selectedLineIdx < 0)
+        gMeme.selectedLineIdx = gMeme.lines.length - 1;
 }
 
 /**
