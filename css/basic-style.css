@@ -2,9 +2,9 @@ a {
     text-decoration: none;
 }
 
-input {
-    background-color: #22252c;
-    color: #ffffff;
+.input {
+    background-color: #22252c !important;
+    color: #ffffff !important;
     font-family: 'Roboto', sans-serif;
     font-size: 1rem !important;
     padding: 1rem;
@@ -15,7 +15,7 @@ input {
     transition: all 0.3s;
 }
 
-input:placeholder-shown {
+.input:placeholder-shown {
     color: #909193;
 }
 

@@ -73,6 +73,30 @@ function onChooseImage(el) {
     repaint();
 }
 
+function onChooseImgFromPc(ev) {
+    loadImageFromInput(ev);
+
+    gotoEditor();
+}
+
+function loadImageFromInput(ev) {
+    var reader = new FileReader();
+
+    reader.onload = function (event) {
+        var img = new Image();
+        img.onload = function () {
+            // Add the img to the all imgs
+            gImgs.push({ id: gImgs.length + 1, url: img.src, keywords: [] });
+
+            setCurrentMemeImgId(gImgs.length);
+            resizeCanvasByImageSize(img);
+            repaint();
+        };
+        img.src = event.target.result;
+    };
+    reader.readAsDataURL(ev.target.files[0]);
+}
+
 // ******** Listeners
 
 function addListeners() {
@@ -196,6 +220,7 @@ function onClickSearchWord(word) {
 
 function updateSearchWordsSize() {
     let clicksMap = loadFormStorage('words_popularity');
+    if (!clicksMap) return;
 
     let sumClicks = 0;
     for (const word in clicksMap) {
@@ -550,6 +575,10 @@ function onChooseSavedProg(projIdx) {
     var allSavedProjs = loadFormStorage();
 
     var currentProj = allSavedProjs[projIdx];
+
+    // Prevent go to img with no valid src
+    if (!currentProj.src) return;
+
     setAllMemeProp(currentProj);
 
     var img = new Image();

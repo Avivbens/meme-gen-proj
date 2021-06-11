@@ -29,6 +29,11 @@
                     <a href="#" class="menu-option">
                         About
                     </a>
+                    <a href="#" class="menu-option hover-pointer" style="position: relative;">
+                        Load Img
+                        <input onchange="onChooseImgFromPc(event)" type="file" class="btn"
+                            style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; padding: 0;">
+                    </a>
                     <a href="#" onclick="onSaveMeme(), toggleMenu()" class="menu-option save-meme-btn hidden">
                         Save
                     </a>
@@ -51,7 +56,7 @@
                 </div>
 
                 <div class="filter-options-container">
-                    <a href="" class="filter-option">Funny</a>
+                    <a href="#" class="filter-option">Funny</a>
                 </div>
                 <button onclick="toggleMoreKeyWords()" class="more-key-words-btn btn">
                     More
@@ -73,7 +78,7 @@
 
             <div class="edit-prop-container">
                 <div class="editor-input-box">
-                    <input oninput="onInputTxt(this)" class="text-editor-input" type="text"
+                    <input oninput="onInputTxt(this)" class="text-editor-input input" type="text"
                         placeholder="Put your text here" )>
                     <button onclick="clearMemeEditorInput()" class="clear-input-btn btn">✖</button>
                 </div>
