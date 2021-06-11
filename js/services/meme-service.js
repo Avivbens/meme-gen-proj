@@ -132,6 +132,30 @@ function getCurrentMeme() {
 }
 
 /**
+ * Load img from pc
+ * @param {Event} ev
+ */
+function loadImageFromInput(ev) {
+    var reader = new FileReader();
+
+    reader.onload = function (event) {
+        var img = new Image();
+        img.onload = function () {
+            // Add the img to the all imgs
+            gImgs.push({ id: gImgs.length + 1, src: img.src, keywords: [] });
+
+            saveToLocal(gImgs, 'all_imgs');
+
+            setCurrentMemeImgId(gImgs.length);
+            resizeCanvasByImageSize(img);
+            repaint();
+        };
+        img.src = event.target.result;
+    };
+    reader.readAsDataURL(ev.target.files[0]);
+}
+
+/**
  * Set current meme img by element from dom
  * @param {Element} img
  */
