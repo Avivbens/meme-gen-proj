@@ -6,7 +6,6 @@ body {
     font-family: Poppins, sans-serif;
     background-color: #1f2525;
     box-sizing: border-box;
-    overflow: hidden;
     height: 100vh;
 }
 
@@ -130,19 +129,17 @@ body {
     position: relative;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 12px;
 }
 
 .text-editor-input {
     background-color: #ebeef3;
-    color: #3d3d3d;
+    color: #3d3d3d !important;
     text-align: center;
     font-weight: bold;
-    font-size: 1.1rem;
-    /* width: 80%; */
     flex-grow: 1;
     padding: 0.8rem;
     border-bottom: 5px solid #bbc4d1;
-    margin-bottom: 12px;
 }
 
 .clear-input-btn {
@@ -150,8 +147,10 @@ body {
     right: 2px;
     top: 0;
     right: 1px;
-    padding: 14px 14px !important;
+    padding-left: 10px !important;
+    padding-right: 10px !important;
     border-radius: 0 100px 100px 0 !important;
+    height: 100%;
 }
 
 .add-remove-btns {
@@ -468,7 +467,7 @@ body {
 
 @media (max-width: 920px) {
     body {
-        overflow-x: hidden;
+        overflow: hidden;
     }
     .editor-container {
         overflow-y: scroll;
@@ -477,7 +476,7 @@ body {
 }
 @media (max-width: 530px) {
     body {
-        overflow-x: hidden;
+        overflow: hidden;
     }
     .menu-options {
         display: flex;

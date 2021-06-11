@@ -78,6 +78,17 @@ function onChooseImage(el) {
 function addListeners() {
     var elCanvas = document.querySelector('canvas');
 
+    // Prevent mobile scale the page
+    document.addEventListener(
+        'touchmove',
+        function (event) {
+            if (event.scale !== 1) {
+                event.preventDefault();
+            }
+        },
+        { passive: false },
+    );
+
     // if (gTouchEvs.includes(ev.type)) {
     //     ev.preventDefault();
     // }
