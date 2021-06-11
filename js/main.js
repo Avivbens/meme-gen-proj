@@ -29,7 +29,7 @@ function renderImgs(imgs) {
     var strHTMLs = imgs.map((img) => {
         return `
         <div class="meme-img-box hover-pointer">
-            <img data-id="${img.id}" class="meme-img" onclick="onChooseImage(this)" src="${img.url}" alt="">
+            <img data-id="${img.id}" class="meme-img" onclick="onChooseImage(this)" src="${img.src}" alt="">
         </div>
         `;
     });
@@ -49,7 +49,7 @@ function renderSavedProj() {
         <div onclick="
         onChooseSavedProg('${idx}');" 
         class="saved-proj-box hover-pointer">
-            <img src="${currentImg.url}" alt="">
+            <img src="${currentImg.src}" alt="">
             <span class="saved-proj-desc">${proj.lines[0].txt}</span>
             <button onclick="removeSavedProj(event, '${idx}')" class="remove-saved-proj-btn hover-pointer">✖</button>
         </div>
@@ -86,7 +86,9 @@ function loadImageFromInput(ev) {
         var img = new Image();
         img.onload = function () {
             // Add the img to the all imgs
-            gImgs.push({ id: gImgs.length + 1, url: img.src, keywords: [] });
+            gImgs.push({ id: gImgs.length + 1, src: img.src, keywords: [] });
+
+            saveToLocal(gImgs, 'all_imgs');
 
             setCurrentMemeImgId(gImgs.length);
             resizeCanvasByImageSize(img);
@@ -576,13 +578,10 @@ function onChooseSavedProg(projIdx) {
 
     var currentProj = allSavedProjs[projIdx];
 
-    // Prevent go to img with no valid src
-    if (!currentProj.src) return;
-
     setAllMemeProp(currentProj);
 
     var img = new Image();
-    img.src = getImageById(currentProj.selectedImgId).url;
+    img.src = getImageById(currentProj.selectedImgId).src;
 
     resizeCanvasByImageSize(img);
     // resizeCanvas();
