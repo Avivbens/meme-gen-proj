@@ -59,13 +59,14 @@ function renderSavedProj() {
 
     var strHTMLs = allSavedProjs.map((proj, idx) => {
         let currentImg = getImageById(proj.selectedImgId);
+        let txtToDisplay = proj.lines[0] ? proj.lines[0].txt : 'No Description';
 
         return `
         <div onclick="
-        onChooseSavedProg('${idx}');" 
+        onChooseSavedProj('${idx}');" 
         class="saved-proj-box hover-pointer">
             <img src="${currentImg.src}" alt="">
-            <span class="saved-proj-desc">${proj.lines[0].txt}</span>
+            <span class="saved-proj-desc" style="text-align: center">${txtToDisplay}</span>
             <button onclick="removeSavedProj(event, '${idx}')" class="remove-saved-proj-btn hover-pointer">✖</button>
         </div>
         `;
@@ -84,6 +85,8 @@ function onChooseImage(el) {
 
     resizeCanvasByImageSize(img);
 
+    onAddNewLine();
+
     gotoEditor();
     repaint();
 }
@@ -96,6 +99,10 @@ function onChooseImgFromPc(ev) {
     loadImageFromInput(ev);
 
     gotoEditor();
+}
+
+function gotoTopPage() {
+    document.querySelector('.main-container').scrollTop = 0;
 }
 
 // ******** Listeners
@@ -393,7 +400,7 @@ function onAddNewLine() {
         return;
     }
 
-    addNewLine();
+    addNewLine(getCanvas().height / 8);
     setCurrentSelectedLine(getCurrentMeme().lines.length - 1);
     setFontSelect('Impact');
     setInputTxt('');
@@ -402,7 +409,7 @@ function onAddNewLine() {
 }
 
 function onAddSticker(img) {
-    addSticker(img);
+    addSticker(img, getCanvas().height / 5);
     setCurrentSelectedLine(getCurrentMeme().lines.length - 1);
     setInputTxt('');
 
@@ -570,7 +577,7 @@ function checkIfNotEmpty() {
  * Load the selected saved proj
  * @param {Number} projIdx - project idx number from local storage
  */
-function onChooseSavedProg(projIdx) {
+function onChooseSavedProj(projIdx) {
     var allSavedProjs = loadFormStorage();
 
     var currentProj = allSavedProjs[projIdx];

@@ -120,7 +120,7 @@ function drawCanvas(src) {
  */
 function drawImg2(line, idx) {
     var img = new Image();
-    img.src = line.stickerImg.src;
+    img.src = line.stickerImg;
 
     // Rect
     if (getCurrentMeme().selectedLineIdx === idx) {

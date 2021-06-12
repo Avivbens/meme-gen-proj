@@ -80,17 +80,17 @@ function initMeme() {
         selectedImgId: '1',
         selectedLineIdx: 0,
         lines: [
-            {
-                txt: 'Put your text here',
-                size: 40,
-                font: 'Impact',
-                align: 'middle',
-                color: 'white',
-                strokeColor: 'black',
-                isUnderline: false,
-                isBold: false,
-                isSticker: false,
-            },
+            // {
+            //     txt: 'Put your text here',
+            //     size: 40,
+            //     font: 'Impact',
+            //     align: 'middle',
+            //     color: 'white',
+            //     strokeColor: 'black',
+            //     isUnderline: false,
+            //     isBold: false,
+            //     isSticker: false,
+            // },
         ],
     };
 
@@ -165,6 +165,8 @@ function loadImageFromInput(ev) {
 
             setCurrentMemeImgId(currentId);
             resizeCanvasByImageSize(img);
+            onAddNewLine();
+
             repaint();
         };
         img.src = event.target.result;
@@ -244,26 +246,30 @@ function updateLineTxt(txt) {
 /**
  * Adding new line and move to it
  */
-function addNewLine() {
+function addNewLine(size = 40) {
     gMeme.lines.push({
         txt: 'Put your text here',
-        size: 40,
+        size,
         font: 'Impact',
         align: 'middle',
         color: 'white',
+        strokeColor: 'black',
+        isUnderline: false,
+        isBold: false,
+        isSticker: false,
     });
 
     gMeme.selectedLineIdx++;
 }
 
-function addSticker(img) {
+function addSticker(img, size = 100) {
     gMeme.lines.push({
         txt: '',
-        size: 100,
+        size,
         x: 200,
         y: 200,
         isSticker: true,
-        stickerImg: img,
+        stickerImg: img.src,
     });
 
     gMeme.selectedLineIdx++;
