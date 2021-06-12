@@ -424,7 +424,10 @@ function setNewXPosition(xPos) {
 }
 
 function calcImageRatio() {
-    let currImg = getCurrentImg();
+    let canvas = getCanvas();
 
-    return (currImg.height * 1.4) / currImg.width;
+    return (
+        (Math.max(canvas.height, canvas.width) * 1.4) /
+        Math.min(canvas.height, canvas.width)
+    );
 }
