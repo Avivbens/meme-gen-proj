@@ -181,6 +181,7 @@ function gotoMainPage() {
     document.querySelector('.saved-memes').classList.remove('hidden');
 
     renderImgs(getImages());
+    renderSortWords(gShownKeyWordsCount);
 }
 
 function gotoSavedProjPage() {
