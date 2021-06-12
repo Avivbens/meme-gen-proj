@@ -10,62 +10,74 @@ function initMeme() {
 
     if (!gImgs) {
         gImgs = [
-            { id: 1, src: 'img/2.jpg', keywords: ['happy'] },
-            { id: 2, src: 'img/003.jpg', keywords: ['trump', 'angry'] },
-            { id: 3, src: 'img/004.jpg', keywords: ['love', 'dogs', 'dog'] },
-            { id: 4, src: 'img/5.jpg', keywords: ['strong', 'baby'] },
+            { id: '1', src: 'img/2.jpg', keywords: ['happy'] },
+            { id: '2', src: 'img/003.jpg', keywords: ['trump', 'angry'] },
+            { id: '3', src: 'img/004.jpg', keywords: ['love', 'dogs', 'dog'] },
+            { id: '4', src: 'img/5.jpg', keywords: ['strong', 'baby'] },
             {
-                id: 5,
+                id: '5',
                 src: 'img/005.jpg',
                 keywords: ['sleep', 'baby', 'resting'],
             },
-            { id: 6, src: 'img/006.jpg', keywords: ['cat', 'sleep'] },
-            { id: 7, src: 'img/8.jpg', keywords: ['crepy', 'clown'] },
-            { id: 8, src: 'img/9.jpg', keywords: ['baby', 'evil'] },
-            { id: 9, src: 'img/12.jpg', keywords: ['truth'] },
-            { id: 10, src: 'img/19.jpg', keywords: ['angry'] },
+            { id: '6', src: 'img/006.jpg', keywords: ['cat', 'sleep'] },
+            { id: '7', src: 'img/8.jpg', keywords: ['crepy', 'clown'] },
+            { id: '8', src: 'img/9.jpg', keywords: ['baby', 'evil'] },
+            { id: '9', src: 'img/12.jpg', keywords: ['truth'] },
+            { id: '10', src: 'img/19.jpg', keywords: ['angry'] },
             {
-                id: 11,
+                id: '11',
                 src: 'img/Ancient-Aliens.jpg',
                 keywords: ['aliens', 'history'],
             },
-            { id: 12, src: 'img/drevil.jpg', keywords: ['drevil'] },
+            { id: '12', src: 'img/drevil.jpg', keywords: ['drevil'] },
             {
-                id: 13,
+                id: '13',
                 src: 'img/img2.jpg',
                 keywords: ['happy', 'dance', 'joy', 'funny'],
             },
             {
-                id: 14,
+                id: '14',
                 src: 'img/img4.jpg',
                 keywords: ['trump', 'angry', 'fuckoff'],
             },
-            { id: 15, src: 'img/img5.jpg', keywords: ['baby', 'spooky'] },
-            { id: 16, src: 'img/img6.jpg', keywords: ['dog', 'rest', 'chill'] },
-            { id: 17, src: 'img/img11.jpg', keywords: ['obama', 'laughing'] },
-            { id: 18, src: 'img/img12.jpg', keywords: ['kiss', 'nba'] },
-            { id: 19, src: 'img/leo.jpg', keywords: ['decaprio', 'salute'] },
-            { id: 20, src: 'img/meme1.jpg', keywords: ['spy'] },
+            { id: '15', src: 'img/img5.jpg', keywords: ['baby', 'spooky'] },
             {
-                id: 21,
+                id: '16',
+                src: 'img/img6.jpg',
+                keywords: ['dog', 'rest', 'chill'],
+            },
+            { id: '17', src: 'img/img11.jpg', keywords: ['obama', 'laughing'] },
+            { id: '18', src: 'img/img12.jpg', keywords: ['kiss', 'nba'] },
+            { id: '19', src: 'img/leo.jpg', keywords: ['decaprio', 'salute'] },
+            { id: '20', src: 'img/meme1.jpg', keywords: ['spy'] },
+            {
+                id: '21',
                 src: 'img/One-Does-Not-Simply.jpg',
                 keywords: ['explain', 'difficult'],
             },
             {
-                id: 22,
+                id: '22',
                 src: 'img/Oprah-You-Get-A.jpg',
                 keywords: ['opera', 'happy'],
             },
-            { id: 23, src: 'img/patrick.jpg', keywords: ['ohh no', 'patrick'] },
-            { id: 24, src: 'img/putin.jpg', keywords: ['putin', 'peace out'] },
-            { id: 25, src: 'img/X-Everywhere.jpg', keywords: ['spooky'] },
+            {
+                id: '23',
+                src: 'img/patrick.jpg',
+                keywords: ['ohh no', 'patrick'],
+            },
+            {
+                id: '24',
+                src: 'img/putin.jpg',
+                keywords: ['putin', 'peace out'],
+            },
+            { id: '25', src: 'img/X-Everywhere.jpg', keywords: ['spooky'] },
         ];
 
         saveToLocal(gImgs, 'all_imgs');
     }
 
     gMeme = {
-        selectedImgId: 1,
+        selectedImgId: '1',
         selectedLineIdx: 0,
         lines: [
             {
@@ -110,7 +122,7 @@ function getImages() {
  */
 function getCurrentImg() {
     let imgById = gImgs.find((img) => {
-        return img.id === +gMeme.selectedImgId;
+        return img.id === gMeme.selectedImgId;
     });
 
     let img = new Image();
@@ -121,7 +133,7 @@ function getCurrentImg() {
 
 function getImageById(id) {
     let imgById = gImgs.find((img) => {
-        return img.id === +id;
+        return img.id === id;
     });
 
     return imgById;
@@ -142,11 +154,16 @@ function loadImageFromInput(ev) {
         var img = new Image();
         img.onload = function () {
             // Add the img to the all imgs
-            gImgs.push({ id: gImgs.length + 1, src: img.src, keywords: [] });
+            let currentId = makeId();
+            gImgs.unshift({
+                id: currentId,
+                src: img.src,
+                keywords: ['my imgs'],
+            });
 
             saveToLocal(gImgs, 'all_imgs');
 
-            setCurrentMemeImgId(gImgs.length);
+            setCurrentMemeImgId(currentId);
             resizeCanvasByImageSize(img);
             repaint();
         };
@@ -165,7 +182,7 @@ function setCurrentMemeImgByEl(img) {
 }
 
 function setCurrentMemeImgId(imgId) {
-    gMeme.selectedImgId = +imgId;
+    gMeme.selectedImgId = imgId;
 }
 
 function setCurrentSelectedLine(idx) {

@@ -29,7 +29,7 @@
                     <a href="#" class="menu-option">
                         About
                     </a>
-                    <a href="#" class="menu-option hover-pointer" style="position: relative;">
+                    <a href="#" onclick="toggleMenu()" class="menu-option hover-pointer" style="position: relative;">
                         Load Img
                         <input onchange="onChooseImgFromPc(event)" type="file" class="btn"
                             style="opacity: 0; position: absolute; top: 0; left: 0; width: 100%; padding: 0;">
@@ -67,7 +67,13 @@
             </section>
         </main>
 
-        <section class="saved-proj-container hidden">
+        <section class="saved-proj-area hidden">
+            <button onclick="localStorage.clear(), location.reload()" class="clear-all-history-btn btn">
+                Clear History
+            </button>
+            <div class="saved-proj-container">
+            </div>
+            <h2 class="saved-proj-user-message"></h2>
         </section>
 
 
@@ -185,6 +191,7 @@
 
     </div>
 
+    <script src="js/services/utils-service.js"></script>
     <script src="js/lib/hammer.min.js"></script>
     <script src="js/services/storage-service.js"></script>
     <script src="js/services/canvas-service.js"></script>

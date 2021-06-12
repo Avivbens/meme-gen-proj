@@ -6,6 +6,7 @@ body {
     font-family: Poppins, sans-serif;
     background-color: #1f2525;
     box-sizing: border-box;
+    overflow: hidden;
     height: 100vh;
 }
 
@@ -357,18 +358,12 @@ body {
     align-items: center;
     flex-wrap: wrap;
     background-color: #87898d;
-    /* max-height: 100px; */
-    height: 100%;
+    max-height: unset;
     border-radius: 3em;
 }
 
-.filter-options-container.keywords-open {
+/* .filter-options-container.keywords-open {
     flex-wrap: wrap;
-    max-height: 160px;
-}
-
-/* .more-key-words-btn.keywords-open {
-    margin-bottom: 40px;
 } */
 
 .filter-options-container a {
@@ -410,14 +405,34 @@ body {
 } */
 
 /**** Saved projects main container ****/
+.saved-proj-area {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    width: 90%;
+}
+
+.clear-all-history-btn {
+    margin-bottom: 20px;
+}
+
+.saved-proj-user-message {
+    color: white;
+    background-color: #383b42;
+    text-align: center;
+    padding: 30px;
+    width: 100%;
+    border-radius: 20px;
+}
+
 .saved-proj-container {
     overflow-y: scroll;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: 200px;
     padding: 20px;
-    height: 75vh;
-    width: 90%;
+    width: 100%;
     gap: 20px;
 }
 
@@ -473,6 +488,11 @@ body {
     .editor-container {
         overflow-y: scroll;
         height: 75vh;
+    }
+    select,
+    option,
+    input {
+        font-size: 16px !important;
     }
 }
 @media (max-width: 690px) {

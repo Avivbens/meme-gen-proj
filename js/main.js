@@ -40,7 +40,22 @@ function renderImgs(imgs) {
 function renderSavedProj() {
     var elSavedProjContainer = document.querySelector('.saved-proj-container');
     var allSavedProjs = loadFormStorage();
-    if (!allSavedProjs) return;
+    elSavedProjContainer.style.visibility = 'visible';
+
+    var msgTitle = document.querySelector('.saved-proj-user-message');
+    msgTitle.style.visibility = 'hidden';
+    msgTitle.innerText = '';
+
+    // Clean saved proj area and display user message
+    if (!allSavedProjs || !allSavedProjs.length) {
+        elSavedProjContainer.innerHTML = '';
+        elSavedProjContainer.style.visibility = 'hidden';
+
+        msgTitle.innerText = 'No Saved Proj to Show!';
+        msgTitle.style.visibility = 'visible';
+        console.log('in');
+        return;
+    }
 
     var strHTMLs = allSavedProjs.map((proj, idx) => {
         let currentImg = getImageById(proj.selectedImgId);
@@ -142,7 +157,7 @@ function addListeners() {
 
 function gotoEditor() {
     document.querySelector('.main-container').classList.add('hidden');
-    document.querySelector('.saved-proj-container').classList.add('hidden');
+    document.querySelector('.saved-proj-area').classList.add('hidden');
     document.querySelector('.editor-container').classList.remove('vis-hidden');
 
     // Display save meme button
@@ -153,12 +168,11 @@ function gotoEditor() {
 function gotoMainPage() {
     initMeme();
     document.querySelector('.editor-container').classList.add('vis-hidden');
-    document.querySelector('.saved-proj-container').classList.add('hidden');
+    document.querySelector('.saved-proj-area').classList.add('hidden');
+    document.querySelector('.main-container').classList.remove('hidden');
 
     // Remove share button
     document.querySelector('.share-container').innerHTML = '';
-
-    document.querySelector('.main-container').classList.remove('hidden');
 
     // Remove save meme button
     document.querySelector('.save-meme-btn').classList.add('hidden');
@@ -170,7 +184,7 @@ function gotoMainPage() {
 function gotoSavedProjPage() {
     document.querySelector('.editor-container').classList.add('vis-hidden');
     document.querySelector('.main-container').classList.add('hidden');
-    document.querySelector('.saved-proj-container').classList.remove('hidden');
+    document.querySelector('.saved-proj-area').classList.remove('hidden');
 
     // Remove save meme button
     document.querySelector('.save-meme-btn').classList.add('hidden');
@@ -532,12 +546,11 @@ function onSaveMeme() {
     var currentSavedMemes = loadFormStorage();
     if (!currentSavedMemes) currentSavedMemes = [];
 
-    // Not saving empty memes
-    // if (!checkIfNotEmpty) return;
-
     currentSavedMemes.push(getCurrentMeme());
 
     saveToLocal(currentSavedMemes);
+
+    setInputTxt('');
     renderSavedProj();
     gotoMainPage();
 }

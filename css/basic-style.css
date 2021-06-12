@@ -6,7 +6,6 @@ a {
     background-color: #22252c !important;
     color: #ffffff !important;
     font-family: 'Roboto', sans-serif;
-    font-size: 1rem !important;
     padding: 1rem;
     border: none;
     border-bottom: 0.3rem solid transparent;
@@ -48,9 +47,4 @@ a {
     opacity: 1;
     cursor: pointer;
     filter: contrast(150%);
-}
-
-select,
-option {
-    font-size: 1rem !important;
 }
