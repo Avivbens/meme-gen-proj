@@ -38,22 +38,21 @@ function renderImgs(imgs) {
 }
 
 function renderSavedProj() {
-    var elSavedProjContainer = document.querySelector('.saved-proj-container');
     var allSavedProjs = loadFormStorage();
-    elSavedProjContainer.style.visibility = 'visible';
+
+    var elSavedProjContainer = document.querySelector('.saved-proj-container');
+    elSavedProjContainer.classList.remove('vis-hidden');
 
     var msgTitle = document.querySelector('.saved-proj-user-message');
-    msgTitle.style.visibility = 'hidden';
-    msgTitle.innerText = '';
+    msgTitle.classList.add('vis-hidden');
 
     // Clean saved proj area and display user message
     if (!allSavedProjs || !allSavedProjs.length) {
         elSavedProjContainer.innerHTML = '';
-        elSavedProjContainer.style.visibility = 'hidden';
+        elSavedProjContainer.classList.add('vis-hidden');
 
-        msgTitle.innerText = 'No Saved Proj to Show!';
-        msgTitle.style.visibility = 'visible';
-        console.log('in');
+        msgTitle.classList.remove('vis-hidden');
+
         return;
     }
 
@@ -120,10 +119,6 @@ function addListeners() {
         },
         { passive: false },
     );
-
-    // if (gTouchEvs.includes(ev.type)) {
-    //     ev.preventDefault();
-    // }
 
     // Pan on
     var hammerTime = new Hammer(elCanvas);
@@ -303,9 +298,6 @@ function toggleMoreKeyWords() {
     var elContainer = document.querySelector('.filter-options-container');
     elContainer.classList.toggle('keywords-open');
 
-    // var elMoreBtn = document.querySelector('.more-key-words-btn');
-    // elMoreBtn.classList.toggle('keywords-open');
-
     renderSortWords(gShownKeyWordsCount);
     updateSearchWordsSize();
 }
@@ -320,21 +312,6 @@ function onInputTxt(el) {
     let txt = el.value;
     updateLineTxt(txt);
     repaint();
-}
-
-/**
- * !Unused
- * Adding new line when there is a click on empty input
- * @param {Element} el - text input of meme line
- */
-function onCheckToAdd(el) {
-    let txt = el.value;
-
-    if (!txt) {
-        onAddNewLine();
-        getCurrentLine().txt = '.';
-        setInputTxt('.');
-    }
 }
 
 /**
@@ -562,17 +539,6 @@ function onSaveMeme() {
     gotoMainPage();
 }
 
-// ! Unused
-function checkIfNotEmpty() {
-    let currentMeme = getCurrentMeme();
-    if (!currentMeme) return false;
-
-    let currentTxt = currentMeme.lines[0].txt;
-    if (!currentTxt || currentTxt === 'Put your text here') return false;
-
-    return true;
-}
-
 /**
  * Load the selected saved proj
  * @param {Number} projIdx - project idx number from local storage
@@ -588,7 +554,6 @@ function onChooseSavedProj(projIdx) {
     img.src = getImageById(currentProj.selectedImgId).src;
 
     resizeCanvasByImageSize(img);
-    // resizeCanvas();
 
     gotoEditor();
     repaint();
@@ -603,22 +568,4 @@ function removeSavedProj(ev, idx) {
     saveToLocal(allSavedProjs);
 
     renderSavedProj();
-}
-
-// ! Unused
-function _calcClickPos(position) {
-    //
-    let can = getCanvas();
-    let diffX = can.width - position.x;
-    let diffY = can.height - position.y;
-    console.log('diffX, diffY :>> ', diffX, diffY);
-
-    return { x: diffX, y: diffY };
-    // return { x: position.x - diffX, y: position.y - diffY };
-}
-
-// ! unused
-function onSelectLine(idx) {
-    idx = idx || 0;
-    setCurrentSelectedLine(idx);
 }
