@@ -135,6 +135,10 @@ function addListeners() {
         { passive: false },
     );
 
+    elCanvas.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+    });
+
     // Pan on
     var hammerTime = new Hammer(elCanvas);
     hammerTime.on('panstart', function (ev) {
