@@ -1,4 +1,5 @@
-html {
+html,
+* {
     /* Prevent double tap to zoom in mobile */
     -ms-touch-action: manipulation !important;
     touch-action: manipulation !important;

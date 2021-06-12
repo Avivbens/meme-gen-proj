@@ -3,6 +3,21 @@
 const FONT_SIZE_CHANGE_STEPS = 2;
 var gShownKeyWordsCount;
 
+var gDoc = document.documentElement;
+
+/* View in fullscreen */
+function openFullscreen() {
+    if (gDoc.requestFullscreen) {
+        gDoc.requestFullscreen();
+    } else if (gDoc.webkitRequestFullscreen) {
+        /* Safari */
+        gDoc.webkitRequestFullscreen();
+    } else if (gDoc.msRequestFullscreen) {
+        /* IE11 */
+        gDoc.msRequestFullscreen();
+    }
+}
+
 function init() {
     initMeme();
 
@@ -15,7 +30,7 @@ function init() {
     renderSortWords(gShownKeyWordsCount);
     updateSearchWordsSize();
 
-    // window.addEventListener('resize', resizeCanvas);
+    window.addEventListener('click', openFullscreen);
 }
 
 function renderAllImgs() {
