@@ -256,6 +256,7 @@ function gotoMainPage() {
 
     renderImgs(getImages());
     renderSortWords(gShownKeyWordsCount);
+    updateSearchWordsSize();
 }
 
 function gotoSavedProjPage() {
