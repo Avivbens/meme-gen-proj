@@ -138,10 +138,15 @@ function addListeners() {
         { passive: false },
     );
 
-    elCanvas.addEventListener('touchmove', function (event) {
-        event.preventDefault();
+    // Cancel move line when out of canvas bounce
+    document.addEventListener('mousemove', function (event) {
+        gIsMovingLine = false;
+        gLastMouseMoves = [];
     });
 
+    // ------------------
+
+    // Handle PC
     elCanvas.addEventListener('mousedown', function (event) {
         if (getCurrentLine()) {
             gIsMovingLine = true;
@@ -151,17 +156,10 @@ function addListeners() {
 
             gLastMouseMoves.push({ x, y });
         } else {
-            // TODO try to catch line
             // !Unused
             // selectLineByCanvas({ x: event.offsetX, y: event.offsetY });
             // repaint();
         }
-    });
-
-    // Cancel move line when out of canvas bounce
-    document.addEventListener('mousemove', function (event) {
-        gIsMovingLine = false;
-        gLastMouseMoves = [];
     });
 
     elCanvas.addEventListener('mouseup', function (event) {
@@ -180,6 +178,40 @@ function addListeners() {
         gLastMouseMoves.push({ x, y });
 
         onMoveCurrLineCanvas();
+    });
+
+    // --------------------------
+
+    // Handle mobile
+    elCanvas.addEventListener('touchmove', function (event) {
+        event.preventDefault();
+
+        if (!gIsMovingLine) return;
+
+        event.stopPropagation();
+
+        let x = event.changedTouches[0].clientX;
+        let y = event.changedTouches[0].clientY;
+
+        gLastMouseMoves.push({ x, y });
+
+        onMoveCurrLineCanvas();
+    });
+
+    elCanvas.addEventListener('touchstart', function (event) {
+        if (getCurrentLine()) {
+            gIsMovingLine = true;
+
+            let x = event.changedTouches[0].clientX;
+            let y = event.changedTouches[0].clientY;
+
+            gLastMouseMoves.push({ x, y });
+        }
+    });
+
+    elCanvas.addEventListener('touchend', function (event) {
+        gIsMovingLine = false;
+        gLastMouseMoves = [];
     });
 }
 
