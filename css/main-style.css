@@ -277,7 +277,6 @@ body {
 
 .share-download-container {
     display: flex;
-    align-items: center;
     max-width: 80%;
     gap: 15px;
 }
@@ -301,7 +300,6 @@ body {
 
 .export-btn:last-child {
     position: relative;
-    right: 35px;
 }
 
 .download-btn {
@@ -309,6 +307,13 @@ body {
 
     border-top: 4px solid #bf84da;
     border-bottom: 4px solid #632687;
+}
+
+.download-btn > a {
+    display: inline-block;
+    width: 80px;
+    height: 40px;
+    line-height: 40px;
 }
 
 .share-btn {

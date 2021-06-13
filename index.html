@@ -173,20 +173,25 @@
                         class="sticker-img hover-pointer">
                 </div>
 
-                <form class="share-download-container" action="" method="POST" enctype="multipart/form-data"
-                    onsubmit="uploadImg(this, event)">
-                    <input name="img" id="imgData" type="hidden" />
-                    <button class="export-btn share-btn hover-pointer" type="submit">
-                        <img src="img/icons/share.png" alt="">
-                        <a>Publish</a>
-                    </button>
+                <div class="share-download-container">
+
+                    <form class="share-btn-container" action="" method="POST" enctype="multipart/form-data"
+                        onsubmit="uploadImg(this, event)">
+                        <input name="img" id="imgData" type="hidden" />
+                        <button class="export-btn share-btn hover-pointer" type="submit">
+                            <img src="img/icons/share.png" alt="">
+                            <a>Publish</a>
+                        </button>
+                        <div class="export-btn share-container"></div>
+
+                    </form>
 
                     <button class="export-btn download-btn hover-pointer">
                         <img src="img/icons/download.png" alt="">
                         <a href="#" onclick="onDownloadCanvas(this)">Download</a>
                     </button>
-                    <div class="export-btn share-container"></div>
-                </form>
+
+                </div>
 
             </div>
 
