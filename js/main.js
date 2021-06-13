@@ -5,18 +5,8 @@ var gShownKeyWordsCount;
 
 var gDoc = document.documentElement;
 
-/* View in fullscreen */
-function openFullscreen() {
-    if (gDoc.requestFullscreen) {
-        gDoc.requestFullscreen();
-    } else if (gDoc.webkitRequestFullscreen) {
-        /* Safari */
-        gDoc.webkitRequestFullscreen();
-    } else if (gDoc.msRequestFullscreen) {
-        /* IE11 */
-        gDoc.msRequestFullscreen();
-    }
-}
+var gIsMovingLine;
+var gLastMouseMoves;
 
 function init() {
     initMeme();
@@ -30,7 +20,10 @@ function init() {
     renderSortWords(gShownKeyWordsCount);
     updateSearchWordsSize();
 
-    window.addEventListener('click', openFullscreen);
+    gIsMovingLine = false;
+    gLastMouseMoves = [];
+
+    // window.addEventListener('click', openFullscreen);
 }
 
 function renderAllImgs() {
@@ -124,6 +117,16 @@ function gotoTopPage() {
 function addListeners() {
     var elCanvas = document.querySelector('canvas');
 
+    // !Unused - example of jsHammer
+    // Pan on
+    // var hammerTime = new Hammer(elCanvas);
+    // hammerTime.on('panstart', function (ev) {
+    //     let x = ev.changedPointers[0].offsetX;
+    //     let y = ev.changedPointers[0].offsetY;
+
+    //     console.log('pan on');
+    // });
+
     // Prevent mobile scale the page
     document.addEventListener(
         'touchmove',
@@ -139,39 +142,59 @@ function addListeners() {
         event.preventDefault();
     });
 
-    // Pan on
-    var hammerTime = new Hammer(elCanvas);
-    hammerTime.on('panstart', function (ev) {
-        let x = ev.changedPointers[0].offsetX;
-        let y = ev.changedPointers[0].offsetY;
-        // TODO
-        console.log('pan on');
+    elCanvas.addEventListener('mousedown', function (event) {
+        if (getCurrentLine()) {
+            gIsMovingLine = true;
+
+            let x = event.offsetX;
+            let y = event.offsetY;
+
+            gLastMouseMoves.push({ x, y });
+        } else {
+            // TODO try to catch line
+            // !Unused
+            // selectLineByCanvas({ x: event.offsetX, y: event.offsetY });
+            // repaint();
+        }
     });
 
-    // Pan move
-    hammerTime.on('panmove', function (ev) {
-        let x = ev.changedPointers[0].offsetX;
-        let y = ev.changedPointers[0].offsetY;
-
-        onMoveCurrLineCanvas({ x, y });
+    // Cancel move line when out of canvas bounce
+    document.addEventListener('mousemove', function (event) {
+        gIsMovingLine = false;
+        gLastMouseMoves = [];
     });
 
-    // Pan off
-    hammerTime.on('panend', function (ev) {
-        let x = ev.changedPointers[0].offsetX;
-        let y = ev.changedPointers[0].offsetY;
-        // TODO
-        console.log('pan off');
+    elCanvas.addEventListener('mouseup', function (event) {
+        gIsMovingLine = false;
+        gLastMouseMoves = [];
     });
 
-    // Single tap
-    hammerTime.on('tap', function (ev) {
-        let x = ev.changedPointers[0].offsetX;
-        let y = ev.changedPointers[0].offsetY;
-        // TODO
+    elCanvas.addEventListener('mousemove', function (event) {
+        if (!gIsMovingLine) return;
 
-        console.log('tap');
+        event.stopPropagation();
+
+        let x = event.offsetX;
+        let y = event.offsetY;
+
+        gLastMouseMoves.push({ x, y });
+
+        onMoveCurrLineCanvas();
     });
+}
+
+// !Unused
+/* View in fullscreen */
+function openFullscreen() {
+    if (gDoc.requestFullscreen) {
+        gDoc.requestFullscreen();
+    } else if (gDoc.webkitRequestFullscreen) {
+        /* Safari */
+        gDoc.webkitRequestFullscreen();
+    } else if (gDoc.msRequestFullscreen) {
+        /* IE11 */
+        gDoc.msRequestFullscreen();
+    }
 }
 
 // **** page nav
@@ -489,48 +512,21 @@ function onColorFont(el) {
 
 // *********** Canvas integral
 
-function onMoveCurrLineCanvas(position) {
+function onMoveCurrLineCanvas() {
     let currentLine = getCurrentLine();
     if (!currentLine) return;
 
-    // if (currentLine.isSticker) {
-    //     // Calculating point of drag position
-    //     let dotPosition = {
-    //         x: currentLine.x,
-    //         y: currentLine.y,
-    //     };
-    //     let radius = 50;
+    // setNewYPosition(position.y);
+    // setNewXPosition(position.x);
 
-    //     if (
-    //         position.x * calcImageRatio() <=
-    //             dotPosition.x * calcImageRatio() + radius &&
-    //         position.x * calcImageRatio() >=
-    //             dotPosition.x * calcImageRatio() - radius &&
-    //         position.y * calcImageRatio() <=
-    //             dotPosition.y * calcImageRatio() + radius &&
-    //         position.y * calcImageRatio() >=
-    //             dotPosition.y * calcImageRatio() - radius
-    //     ) {
-    //         // TODO scale img
-    //         console.log('in');
-    //         //
-    //         let dis = Math.sqrt(
-    //             (Math.pow(currentLine.x - position.x), 2) +
-    //                 (Math.pow(currentLine.y - position.y), 2),
-    //         );
-    //         // dis = gLastDis - dis;
-    //         // gLastDis = dis;
+    var diffX =
+        gLastMouseMoves[gLastMouseMoves.length - 1].x -
+        gLastMouseMoves[gLastMouseMoves.length - 2].x;
+    var diffY =
+        gLastMouseMoves[gLastMouseMoves.length - 1].y -
+        gLastMouseMoves[gLastMouseMoves.length - 2].y;
 
-    //         currentLine.size = dis + currentLine.size;
-    //         if (currentLine.size < 0) currentLine.size * -1;
-
-    //         repaint();
-    //         return;
-    //     }
-    // }
-
-    setNewYPosition(position.y * 1.2);
-    setNewXPosition(position.x);
+    changeXAndYPos({ x: diffX, y: diffY });
     repaint();
 }
 

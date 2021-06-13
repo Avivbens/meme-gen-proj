@@ -363,15 +363,6 @@ function toggleBold() {
     currentLine.isBold = !currentLine.isBold;
 }
 
-// !Unused
-function toggleUnderline() {
-    var currentLine = getCurrentLine();
-
-    if (!currentLine) return;
-
-    currentLine.isUnderline = !currentLine.isUnderline;
-}
-
 /**
  * Calculate the estimated position X of the line based on align
  */
@@ -401,6 +392,15 @@ function arrangePositionByAlign() {
     }
 }
 
+// !Unused
+function toggleUnderline() {
+    var currentLine = getCurrentLine();
+
+    if (!currentLine) return;
+
+    currentLine.isUnderline = !currentLine.isUnderline;
+}
+
 // ************ Interactive with canvas
 
 function checkSelection(point) {
@@ -411,23 +411,51 @@ function checkSelection(point) {
     if (!selectedLine) return;
 }
 
+function changeXAndYPos(diff) {
+    let currentLine = getCurrentLine();
+
+    currentLine.x += diff.x;
+    currentLine.y += diff.y;
+}
+
+// !Unused
+function selectLineByCanvas(position) {
+    if (getCurrentLine()) return;
+
+    var newLine = gMeme.lines.findIndex((line) => {
+        return (
+            line.x < position.x &&
+            line.x + line.size < position.x &&
+            line.y < position.y &&
+            line.y + line.size > position.y
+        );
+    });
+    setCurrentSelectedLine(newLine);
+}
+
+// !Unused
 function setNewYPosition(yPos) {
     let currentLine = getCurrentLine();
 
     currentLine.y = yPos * calcImageRatio();
 }
 
+// !Unused
 function setNewXPosition(xPos) {
     let currentLine = getCurrentLine();
 
     currentLine.x = xPos * calcImageRatio();
 }
 
+// !Unused
 function calcImageRatio() {
-    let canvas = getCanvas();
+    let img = getCurrentImg();
 
-    return (
-        (Math.max(canvas.height, canvas.width) * 1.4) /
-        Math.min(canvas.height, canvas.width)
-    );
+    var res =
+        Math.max(img.naturalHeight, img.naturalWidth) /
+        Math.min(img.naturalHeight, img.naturalWidth);
+
+    if (img.naturalHeight >= img.naturalWidth) res *= 2;
+
+    return res;
 }

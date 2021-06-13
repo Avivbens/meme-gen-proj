@@ -121,6 +121,13 @@ body {
     max-height: 100%;
 }
 
+#my-canvas:hover {
+    cursor: grab;
+}
+#my-canvas:active {
+    cursor: grabbing;
+}
+
 .edit-prop-container {
     flex-grow: 1;
     height: 25.275rem;
@@ -408,11 +415,6 @@ body {
     object-fit: cover;
     border-radius: 15px;
 }
-
-/* .meme-img:hover {
-    cursor: pointer;
-    opacity: 0.75;
-} */
 
 /**** Saved projects main container ****/
 .saved-proj-area {
