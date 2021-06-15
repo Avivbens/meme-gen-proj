@@ -6,7 +6,7 @@ var gImgs;
 var gMeme;
 
 function initMeme() {
-    gImgs = loadFormStorage('all_imgs');
+    gImgs = loadFromStorage('all_imgs');
 
     if (!gImgs) {
         gImgs = [
@@ -98,9 +98,7 @@ function initMeme() {
 }
 
 function generateKeyWords() {
-    let copyOfImgs = JSON.parse(JSON.stringify(gImgs));
-
-    let keysMap = copyOfImgs.reduce((acc, img) => {
+    let keysMap = gImgs.reduce((acc, img) => {
         img.keywords.forEach((keyword) => {
             acc[keyword] = acc[keyword] ? acc[keyword] + 1 : 1;
         });
@@ -111,9 +109,9 @@ function generateKeyWords() {
 }
 
 /**
- * @returns All Images
+ * @returns All imgs
  */
-function getImages() {
+function getImgs() {
     return gImgs;
 }
 
@@ -131,7 +129,7 @@ function getCurrentImg() {
     return img;
 }
 
-function getImageById(id) {
+function getImgById(id) {
     let imgById = gImgs.find((img) => {
         return img.id === id;
     });
@@ -147,7 +145,7 @@ function getCurrentMeme() {
  * Load img from pc
  * @param {Event} ev
  */
-function loadImageFromInput(ev) {
+function loadImgFromInput(ev) {
     var reader = new FileReader();
 
     reader.onload = function (event) {
@@ -164,7 +162,7 @@ function loadImageFromInput(ev) {
             saveToLocal(gImgs, 'all_imgs');
 
             setCurrentMemeImgId(currentId);
-            resizeCanvasByImageSize(img);
+            resizeCanvasByImgSize(img);
             onAddNewLine();
 
             repaint();
@@ -172,15 +170,6 @@ function loadImageFromInput(ev) {
         img.src = event.target.result;
     };
     reader.readAsDataURL(ev.target.files[0]);
-}
-
-/**
- * Set current meme img by element from dom
- * @param {Element} img
- */
-function setCurrentMemeImgByEl(img) {
-    let imgId = img.dataset['id'];
-    gMeme.selectedImgId = imgId;
 }
 
 function setCurrentMemeImgId(imgId) {
@@ -191,8 +180,12 @@ function setCurrentSelectedLine(idx) {
     gMeme.selectedLineIdx = +idx;
 }
 
-function setAllMemeProp(meme) {
-    gMeme = meme;
+function loadMemeFromStorage(projIdx) {
+    var allSavedProjs = loadFromStorage();
+
+    var currentProj = allSavedProjs[projIdx];
+
+    gMeme = currentProj;
 }
 
 function getCurrentLine() {
@@ -214,7 +207,7 @@ function getLastLineIdx() {
  * @returns the current clicks value of the word
  */
 function updateWordsCounter(word) {
-    let wordsCounter = loadFormStorage('words_popularity');
+    let wordsCounter = loadFromStorage('words_popularity');
     if (!wordsCounter) wordsCounter = {};
 
     wordsCounter[word] = wordsCounter[word] ? wordsCounter[word] + 1 : 1;
@@ -287,8 +280,7 @@ function deleteLine() {
     gMeme.lines.splice(currentIdx, 1);
 
     gMeme.selectedLineIdx--;
-    if (gMeme.selectedLineIdx < 0)
-        gMeme.selectedLineIdx = gMeme.lines.length - 1;
+    if (gMeme.selectedLineIdx < 0) gMeme.selectedLineIdx = gMeme.lines.length - 1;
 }
 
 /**
@@ -372,15 +364,10 @@ function arrangePositionByAlign() {
 
     switch (currentLine.align) {
         case 'middle':
-            currentLine.x =
-                getCanvasCenterWidth() -
-                gCtx.measureText(currentLine.txt).width / 2;
+            currentLine.x = getCanvasCenterWidth() - gCtx.measureText(currentLine.txt).width / 2;
             break;
         case 'right':
-            currentLine.x =
-                getCanvasCenterWidth() * 2 -
-                gCtx.measureText(currentLine.txt).width -
-                20;
+            currentLine.x = getCanvasCenterWidth() * 2 - gCtx.measureText(currentLine.txt).width - 20;
             break;
         case 'left':
             currentLine.x = 20;
@@ -423,12 +410,7 @@ function selectLineByCanvas(position) {
     if (getCurrentLine()) return;
 
     var newLine = gMeme.lines.findIndex((line) => {
-        return (
-            line.x < position.x &&
-            line.x + line.size < position.x &&
-            line.y < position.y &&
-            line.y + line.size > position.y
-        );
+        return line.x < position.x && line.x + line.size < position.x && line.y < position.y && line.y + line.size > position.y;
     });
     setCurrentSelectedLine(newLine);
 }
@@ -437,23 +419,21 @@ function selectLineByCanvas(position) {
 function setNewYPosition(yPos) {
     let currentLine = getCurrentLine();
 
-    currentLine.y = yPos * calcImageRatio();
+    currentLine.y = yPos * calcImgRatio();
 }
 
 // !Unused
 function setNewXPosition(xPos) {
     let currentLine = getCurrentLine();
 
-    currentLine.x = xPos * calcImageRatio();
+    currentLine.x = xPos * calcImgRatio();
 }
 
 // !Unused
-function calcImageRatio() {
+function calcImgRatio() {
     let img = getCurrentImg();
 
-    var res =
-        Math.max(img.naturalHeight, img.naturalWidth) /
-        Math.min(img.naturalHeight, img.naturalWidth);
+    var res = Math.max(img.naturalHeight, img.naturalWidth) / Math.min(img.naturalHeight, img.naturalWidth);
 
     if (img.naturalHeight >= img.naturalWidth) res *= 2;
 

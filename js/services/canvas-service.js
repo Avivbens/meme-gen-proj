@@ -23,10 +23,6 @@ function initCanvasService() {
     gDensity = 2;
 }
 
-function getCanvas() {
-    return gCanvas;
-}
-
 function resizeCanvas() {
     var elContainer = document.querySelector('.canvas-container');
 
@@ -39,7 +35,7 @@ function resizeCanvas() {
     gCanvas.height = elContainer.offsetHeight;
 }
 
-function resizeCanvasByImageSize(img) {
+function resizeCanvasByImgSize(img) {
     // Note: changing the canvas dimension this way clears the canvas
     gCanvas.width = img.width;
     gCanvas.height = img.height;
@@ -78,13 +74,13 @@ function drawCanvas(src) {
     img.src = src;
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
-        // drawImageScaled(img);
+        // drawImgScaled(img);
         drawMeme();
     };
 }
 
 /**
- * Drawing Image on the canvas with rect around
+ * Drawing img on the canvas with rect around
  * @param {Image} img
  */
 function drawImg2(line, idx) {
@@ -105,30 +101,19 @@ function drawImg2(line, idx) {
 }
 
 // ! Unused
-function drawImageScaled(img) {
+function drawImgScaled(img) {
     var hRatio = gCanvas.width / img.width;
     var vRatio = gCanvas.height / img.height;
     var ratio = Math.max(hRatio, vRatio);
     var centerShift_x = (gCanvas.width - img.width * ratio) / 2;
     var centerShift_y = (gCanvas.height - img.height * ratio) / 2;
     gCtx.clearRect(0, 0, gCanvas.width, gCanvas.height);
-    gCtx.drawImage(
-        img,
-        0,
-        0,
-        img.width,
-        img.height,
-        centerShift_x,
-        centerShift_y,
-        img.width * ratio,
-        img.height * ratio,
-    );
+    gCtx.drawImage(img, 0, 0, img.width, img.height, centerShift_x, centerShift_y, img.width * ratio, img.height * ratio);
 }
 
 function drawImg3() {
     var img = new Image();
-    img.src =
-        'https://steamuserimages-a.akamaihd.net/ugc/940586530515504757/CDDE77CB810474E1C07B945E40AE4713141AFD76/';
+    img.src = 'https://steamuserimgs-a.akamaihd.net/ugc/940586530515504757/CDDE77CB810474E1C07B945E40AE4713141AFD76/';
     img.onload = () => {
         gCtx.drawImage(img, 0, 0, gCanvas.width, gCanvas.height);
     };
@@ -185,12 +170,7 @@ function drawTextByLine(line, idx) {
     // Rect
     if (getCurrentMeme().selectedLineIdx === idx) {
         gCtx.fillStyle = 'rgb(56 59 66 / 44%)';
-        gCtx.fillRect(
-            0,
-            currentPos.y - line.size * 1,
-            gCanvas.width,
-            line.size * 1.5,
-        );
+        gCtx.fillRect(0, currentPos.y - line.size * 1, gCanvas.width, line.size * 1.5);
     }
 
     // Underline
@@ -254,6 +234,10 @@ function getCanvasCenterWidth() {
 
 function getCanvasCenterHeight() {
     return gCanvas.height / 2;
+}
+
+function getCanvasHeight() {
+    return gCanvas.height;
 }
 
 function repaint() {

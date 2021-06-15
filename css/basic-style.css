@@ -55,3 +55,12 @@ a {
     cursor: pointer;
     filter: contrast(150%);
 }
+
+.only-functionally {
+    opacity: 0 !important;
+    position: absolute !important;
+    left: 0;
+    top: 0;
+    width: 100% !important;
+    height: 100% !important;
+}

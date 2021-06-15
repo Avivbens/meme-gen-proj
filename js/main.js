@@ -27,26 +27,26 @@ function init() {
 }
 
 function renderAllImgs() {
-    var allImages = getImages();
-    renderImgs(allImages);
+    var allImgs = getImgs();
+    renderImgs(allImgs);
 }
 
 function renderImgs(imgs) {
-    var elImagesContainer = document.querySelector('.main-images-container');
+    var elImgsContainer = document.querySelector('.main-imgs-container');
 
     var strHTMLs = imgs.map((img) => {
         return `
         <div class="meme-img-box hover-pointer">
-            <img data-id="${img.id}" class="meme-img" onclick="onChooseImage(this)" src="${img.src}" alt="">
+            <img data-id="${img.id}" class="meme-img" onclick="onChooseImg(this)" src="${img.src}" alt="">
         </div>
         `;
     });
 
-    elImagesContainer.innerHTML = strHTMLs.join('');
+    elImgsContainer.innerHTML = strHTMLs.join('');
 }
 
 function renderSavedProj() {
-    var allSavedProjs = loadFormStorage();
+    var allSavedProjs = loadFromStorage();
 
     var elSavedProjContainer = document.querySelector('.saved-proj-container');
     elSavedProjContainer.classList.remove('vis-hidden');
@@ -65,7 +65,7 @@ function renderSavedProj() {
     }
 
     var strHTMLs = allSavedProjs.map((proj, idx) => {
-        let currentImg = getImageById(proj.selectedImgId);
+        let currentImg = getImgById(proj.selectedImgId);
         let txtToDisplay = proj.lines[0] ? proj.lines[0].txt : 'No Description';
 
         return `
@@ -82,19 +82,21 @@ function renderSavedProj() {
     elSavedProjContainer.innerHTML = strHTMLs.join('');
 }
 
-function onChooseImage(el) {
+function onChooseImg(el) {
     if (el) {
-        setCurrentMemeImgByEl(el);
+        let imgId = el.dataset['id'];
+
+        setCurrentMemeImgId(imgId);
     }
 
     var img = new Image();
     img.src = el.src;
 
-    resizeCanvasByImageSize(img);
+    resizeCanvasByImgSize(img);
 
     onAddNewLine();
 
-    gotoEditor();
+    onGotoEditor();
     repaint();
 }
 
@@ -103,12 +105,12 @@ function onChooseImage(el) {
  * @param {Event} ev
  */
 function onChooseImgFromPc(ev) {
-    loadImageFromInput(ev);
+    loadImgFromInput(ev);
 
-    gotoEditor();
+    onGotoEditor();
 }
 
-function gotoTopPage() {
+function onGotoTopPage() {
     document.querySelector('.main-container').scrollTop = 0;
 }
 
@@ -231,7 +233,7 @@ function openFullscreen() {
 
 // **** page nav
 
-function gotoEditor() {
+function onGotoEditor() {
     document.querySelector('.main-container').classList.add('hidden');
     document.querySelector('.saved-proj-area').classList.add('hidden');
     document.querySelector('.editor-container').classList.remove('vis-hidden');
@@ -241,7 +243,7 @@ function gotoEditor() {
     document.querySelector('.saved-memes').classList.add('hidden');
 }
 
-function gotoMainPage() {
+function onGotoMainPage() {
     initMeme();
     document.querySelector('.editor-container').classList.add('vis-hidden');
     document.querySelector('.saved-proj-area').classList.add('hidden');
@@ -254,12 +256,12 @@ function gotoMainPage() {
     document.querySelector('.save-meme-btn').classList.add('hidden');
     document.querySelector('.saved-memes').classList.remove('hidden');
 
-    renderImgs(getImages());
+    renderImgs(getImgs());
     renderSortWords(gShownKeyWordsCount);
     updateSearchWordsSize();
 }
 
-function gotoSavedProjPage() {
+function onGotoSavedProjPage() {
     document.querySelector('.editor-container').classList.add('vis-hidden');
     document.querySelector('.main-container').classList.add('hidden');
     document.querySelector('.saved-proj-area').classList.remove('hidden');
@@ -269,7 +271,7 @@ function gotoSavedProjPage() {
     document.querySelector('.saved-memes').classList.add('hidden');
 }
 
-function toggleMenu() {
+function onToggleMenu() {
     var menuBar = document.querySelector('.menu-options');
     menuBar.classList.toggle('closed');
 }
@@ -277,18 +279,18 @@ function toggleMenu() {
 // ********* Filter bar
 
 function onSearch(elInput) {
-    let allImgs = getImages();
+    let allImgs = getImgs();
     let val = elInput.value;
 
-    let imgsForDis = filerImagesByString(allImgs, val);
+    let imgsForDis = filterImgsByString(allImgs, val);
 
     renderImgs(imgsForDis);
 }
 
 function onClickSearchWord(word) {
-    let allImgs = getImages();
+    let allImgs = getImgs();
 
-    let imgsForDis = filerImagesByString(allImgs, word);
+    let imgsForDis = filterImgsByString(allImgs, word);
 
     renderImgs(imgsForDis);
 
@@ -297,7 +299,7 @@ function onClickSearchWord(word) {
 }
 
 function updateSearchWordsSize() {
-    let clicksMap = loadFormStorage('words_popularity');
+    let clicksMap = loadFromStorage('words_popularity');
     if (!clicksMap) return;
 
     let sumClicks = 0;
@@ -320,7 +322,7 @@ function updateSearchWordsSize() {
     });
 }
 
-function filerImagesByString(imgs, txt) {
+function filterImgsByString(imgs, txt) {
     let imgsForDis = imgs.filter((img) => {
         return img.keywords.some((keyword) => {
             return keyword.toUpperCase().includes(txt.toUpperCase());
@@ -332,7 +334,7 @@ function filerImagesByString(imgs, txt) {
 
 function clearCurrentFilter() {
     document.querySelector('.search-input').value = '';
-    renderImgs(getImages());
+    renderImgs(getImgs());
 }
 
 /**
@@ -352,7 +354,7 @@ function renderSortWords(length) {
             wordsArr.push(`
             <a href="#" data-word="${word}" 
             class="filter-option filter-word" style="font-size: 
-            ${(times * 250) / getImages().length}px"
+            ${(times * 250) / getImgs().length}px"
             onclick="onClickSearchWord('${word}')">
             ${word}</a>
             `);
@@ -453,7 +455,7 @@ function onAddNewLine() {
         return;
     }
 
-    addNewLine(getCanvas().height / 8);
+    addNewLine(getCanvasHeight() / 8);
     setCurrentSelectedLine(getCurrentMeme().lines.length - 1);
     setFontSelect('Impact');
     setInputTxt('');
@@ -462,7 +464,7 @@ function onAddNewLine() {
 }
 
 function onAddSticker(img) {
-    addSticker(img, getCanvas().height / 5);
+    addSticker(img, getCanvasHeight() / 5);
     setCurrentSelectedLine(getCurrentMeme().lines.length - 1);
     setInputTxt('');
 
@@ -552,12 +554,8 @@ function onMoveCurrLineCanvas() {
     // setNewYPosition(position.y);
     // setNewXPosition(position.x);
 
-    var diffX =
-        gLastMouseMoves[gLastMouseMoves.length - 1].x -
-        gLastMouseMoves[gLastMouseMoves.length - 2].x;
-    var diffY =
-        gLastMouseMoves[gLastMouseMoves.length - 1].y -
-        gLastMouseMoves[gLastMouseMoves.length - 2].y;
+    var diffX = gLastMouseMoves[gLastMouseMoves.length - 1].x - gLastMouseMoves[gLastMouseMoves.length - 2].x;
+    var diffY = gLastMouseMoves[gLastMouseMoves.length - 1].y - gLastMouseMoves[gLastMouseMoves.length - 2].y;
 
     changeXAndYPos({ x: diffX, y: diffY });
     repaint();
@@ -576,7 +574,7 @@ function onDownloadCanvas(el) {
  * Save Memes to edit to local storage
  */
 function onSaveMeme() {
-    var currentSavedMemes = loadFormStorage();
+    var currentSavedMemes = loadFromStorage();
     if (!currentSavedMemes) currentSavedMemes = [];
 
     currentSavedMemes.push(getCurrentMeme());
@@ -585,7 +583,7 @@ function onSaveMeme() {
 
     setInputTxt('');
     renderSavedProj();
-    gotoMainPage();
+    onGotoMainPage();
 }
 
 /**
@@ -593,25 +591,20 @@ function onSaveMeme() {
  * @param {Number} projIdx - project idx number from local storage
  */
 function onChooseSavedProj(projIdx) {
-    var allSavedProjs = loadFormStorage();
+    loadMemeFromStorage(projIdx);
 
-    var currentProj = allSavedProjs[projIdx];
+    var img = getCurrentImg();
 
-    setAllMemeProp(currentProj);
+    resizeCanvasByImgSize(img);
 
-    var img = new Image();
-    img.src = getImageById(currentProj.selectedImgId).src;
-
-    resizeCanvasByImageSize(img);
-
-    gotoEditor();
+    onGotoEditor();
     repaint();
 }
 
 function removeSavedProj(ev, idx) {
     ev.stopPropagation();
 
-    var allSavedProjs = loadFormStorage();
+    var allSavedProjs = loadFromStorage();
 
     allSavedProjs.splice(idx, 1);
     saveToLocal(allSavedProjs);

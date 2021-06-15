@@ -8,7 +8,7 @@ function saveToLocal(item, KEY = LOCAL_KEY) {
     localStorage.setItem(KEY, json);
 }
 
-function loadFormStorage(KEY = LOCAL_KEY) {
+function loadFromStorage(KEY = LOCAL_KEY) {
     var json = localStorage.getItem(KEY);
 
     json = JSON.parse(json);
